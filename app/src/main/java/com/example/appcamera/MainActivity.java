@@ -51,21 +51,18 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void checkPermissionsAndOpen(boolean isPhoto) {
-        // 1) Câmera
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
                 != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(
                     this, new String[]{Manifest.permission.CAMERA}, REQ_CAM);
             return;
         }
-        // 2) Áudio (só para vídeo)
         if (!isPhoto && ContextCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO)
                 != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(
                     this, new String[]{Manifest.permission.RECORD_AUDIO}, REQ_CAM);
             return;
         }
-        // 3) Escrita pré-Q
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q &&
                 ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
                         != PackageManager.PERMISSION_GRANTED) {
@@ -73,13 +70,11 @@ public class MainActivity extends AppCompatActivity {
                     this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQ_WRITE);
             return;
         }
-        // Tudo OK → chama câmera ou vídeo
         if (isPhoto) openCamera();
         else        openVideoRecorder();
     }
 
     private void openCamera() {
-        // prepara URI para foto
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
             ContentValues vals = new ContentValues();
             vals.put(MediaStore.Images.Media.DISPLAY_NAME,
@@ -104,7 +99,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void openVideoRecorder() {
-        // prepara URI para vídeo
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
             ContentValues vals = new ContentValues();
             vals.put(MediaStore.Video.Media.DISPLAY_NAME,
@@ -125,8 +119,8 @@ public class MainActivity extends AppCompatActivity {
 
         Intent i = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
         i.putExtra(MediaStore.EXTRA_OUTPUT, videoUri);
-        i.putExtra(MediaStore.EXTRA_VIDEO_QUALITY, 1);       // alta qualidade
-        i.putExtra(MediaStore.EXTRA_DURATION_LIMIT, 60);     // até 60s
+        i.putExtra(MediaStore.EXTRA_VIDEO_QUALITY, 1);
+        i.putExtra(MediaStore.EXTRA_DURATION_LIMIT, 60);
         startActivityForResult(i, REQ_CAPTURE_VIDEO);
     }
 
@@ -138,8 +132,6 @@ public class MainActivity extends AppCompatActivity {
         if ((code == REQ_CAM || code == REQ_WRITE)
                 && grants.length > 0
                 && grants[0] == PackageManager.PERMISSION_GRANTED) {
-            // re-tenta: detecta qual ação faltou
-            // simples: assume foto; o usuário clica de novo se for vídeo
             openCamera();
         } else {
             Toast.makeText(this, "Permissão negada",
@@ -153,14 +145,12 @@ public class MainActivity extends AppCompatActivity {
         if (res != RESULT_OK) return;
 
         if (req == REQ_CAPTURE_PHOTO) {
-            // exibe foto
             videoView.setVisibility(VideoView.GONE);
             imageView.setVisibility(ImageView.VISIBLE);
             imageView.setImageURI(photoUri);
             Toast.makeText(this, "Foto salva!", Toast.LENGTH_SHORT).show();
 
         } else if (req == REQ_CAPTURE_VIDEO) {
-            // exibe vídeo
             imageView.setVisibility(ImageView.GONE);
             videoView.setVisibility(VideoView.VISIBLE);
             videoView.setVideoURI(videoUri);
