@@ -10,21 +10,38 @@
 
 <div align="center">
 
-<img src="https://cdn-icons-png.flaticon.com/512/685/685655.png" alt="AppCamera Logo" width="110" />
+```
+ █████╗ ██████╗ ██████╗  ██████╗ █████╗ ███╗   ███╗███████╗██████╗  █████╗
+██╔══██╗██╔══██╗██╔══██╗██╔════╝██╔══██╗████╗ ████║██╔════╝██╔══██╗██╔══██╗
+███████║██████╔╝██████╔╝██║     ███████║██╔████╔██║█████╗  ██████╔╝███████║
+██╔══██║██╔═══╝ ██╔═══╝ ██║     ██╔══██║██║╚██╔╝██║██╔══╝  ██╔══██╗██╔══██║
+██║  ██║██║     ██║     ╚██████╗██║  ██║██║ ╚═╝ ██║███████╗██║  ██║██║  ██║
+╚═╝  ╚═╝╚═╝     ╚═╝      ╚═════╝╚═╝  ╚═╝╚═╝     ╚═╝╚══════╝╚═╝  ╚═╝╚═╝  ╚═╝
+                Native Android Photo & Video Capture Application
+```
 
-# 📸 AppCamera — Android Camera & Video Capture App
+---
 
-**A native Android application, written in Java, that demonstrates how to trigger**
-**the device camera to take photos and record videos via Android Intents.**
+[![Android](https://img.shields.io/badge/Android-SDK%2024--35-3DDC84?style=for-the-badge&logo=android&logoColor=white)](https://developer.android.com/)
+[![Java](https://img.shields.io/badge/Java-11-ED8B00?style=for-the-badge&logo=openjdk&logoColor=white)](https://openjdk.org/)
+[![Gradle](https://img.shields.io/badge/Gradle-Kotlin%20DSL-02303A?style=for-the-badge&logo=gradle&logoColor=white)](https://gradle.org/)
+[![Material](https://img.shields.io/badge/UI-Material%20Design%203-757575?style=for-the-badge&logo=materialdesign&logoColor=white)](https://m3.material.io/)
+[![MediaStore](https://img.shields.io/badge/Storage-Scoped%20MediaStore-6DB33F?style=for-the-badge&logo=databricks&logoColor=white)](https://developer.android.com/training/data-storage/shared/media)
+[![License](https://img.shields.io/badge/License-Educational-8B5CF6?style=for-the-badge)]()
+[![Status](https://img.shields.io/badge/Status-Stable-10B981?style=for-the-badge&logo=checkmarx&logoColor=white)]()
 
-<br>
+<br/>
 
-![Java](https://img.shields.io/badge/Java-ED8B00?style=for-the-badge&logo=openjdk&logoColor=white)
-![Android](https://img.shields.io/badge/Android-3DDC84?style=for-the-badge&logo=android&logoColor=white)
-![Gradle](https://img.shields.io/badge/Gradle-02303A?style=for-the-badge&logo=gradle&logoColor=white)
-![MediaStore](https://img.shields.io/badge/API-MediaStore-blueviolet?style=for-the-badge)
-![Status](https://img.shields.io/badge/Status-Complete_(Demo)-brightgreen?style=for-the-badge)
-![License](https://img.shields.io/badge/License-MIT-blue?style=for-the-badge)
+> **A native Android application for capturing photos and recording video**
+> built on Intent delegation, runtime permissions, and scoped storage via MediaStore.
+
+<br/>
+
+![Activities](https://img.shields.io/badge/Activities-1-3DDC84?style=flat-square)
+![Min SDK](https://img.shields.io/badge/Min%20SDK-24%20(Nougat)-10B981?style=flat-square)
+![Target SDK](https://img.shields.io/badge/Target%20SDK-35%20(Vanilla%20Ice%20Cream)-FF6B35?style=flat-square)
+![Permissions](https://img.shields.io/badge/Runtime%20Permissions-3-8B5CF6?style=flat-square)
+![Themes](https://img.shields.io/badge/Themes-Light%20%2B%20Dark-FCC624?style=flat-square)
 
 </div>
 
@@ -35,1546 +52,1142 @@
 <details>
 <summary>▶️ <strong>Click to expand / collapse this section</strong></summary>
 
-**🏗️ Project**
-- [About the Project](#-about-the-project)
-- [Main Features](#-main-features)
-- [Technology Stack](#️-technology-stack)
-- [Implementation Highlights](#-implementation-highlights)
-- [Repository Structure](#-repository-structure)
-- [How to Run](#-how-to-run)
-- [How to Contribute](#-how-to-contribute)
-- [Author](#-author)
-- [License](#-license)
+<table>
+<tr>
+<td valign="top" width="50%">
 
-**📋 Product & Engineering Documentation**
-- [1. Requirements](#1-requirements)
-- [2. UML Diagrams](#2-uml-diagrams)
-- [3. Data Modeling](#3-data-modeling)
-- [4. Architecture](#4-architecture)
-- [5. Business Processes](#5-business-processes)
-- [6. UX/UI & Prototypes](#6-uxui--prototypes)
-- [7. Technical Documentation](#7-technical-documentation)
-- [8. Project Management](#8-project-management)
-- [9. Business Analysis](#9-business-analysis)
-- [10. Security & Compliance](#10-security--compliance)
+**🏗️ System**
+- [Overview](#-overview)
+- [System Architecture](#-system-architecture)
+- [Technology Stack](#-technology-stack)
+- [Design Patterns](#-design-patterns-applied)
+- [Project Structure](#-project-structure)
+
+**📦 Modules**
+- [MainActivity — Orchestrator](#-mainactivity--main-orchestrator)
+- [Permission Gate](#-permission-gate--runtime-authorization)
+- [Photo Capture](#-photo-capture--image-pipeline)
+- [Video Capture](#-video-capture--recording-pipeline)
+- [Media Preview](#-media-preview--playback-surface)
+- [Storage Adapter](#-storage-adapter--mediastore--legacy)
+- [Theme & Resources](#-theme--resources--material-design-3)
+
+</td>
+<td valign="top" width="50%">
+
+**💼 Business**
+- [Business Rules](#-business-rules)
+- [Functional Requirements](#-functional-requirements)
+- [Non-Functional Requirements](#-non-functional-requirements)
+
+**📐 Design**
+- [Data Model](#-data-model)
+- [System Flows](#-system-flows)
+- [Photo Capture Flow](#photo-capture-flow)
+- [Video Capture Flow](#video-capture-flow)
+- [Permission Flow](#permission-request-flow)
+
+**🔐 Security & Ops**
+- [Security](#-security)
+- [Installation & Execution](#-installation--execution)
+- [Automated Tests](#-automated-tests)
+- [Metrics & Monitoring](#-metrics--monitoring)
+- [Known Limitations](#-known-limitations)
+
+</td>
+</tr>
+</table>
+
+---
 
 </details>
 
----
-
-## 📖 About the Project
-
-> **AppCamera** is an Android demo project that illustrates one of the most common features of the mobile ecosystem: **interacting with the device camera** in a simple, safe, and lightweight way.
-
-Instead of building a camera UI from scratch (using low-level APIs such as `CameraX` or `Camera2`), this app uses **Android Intents via `MediaStore`** — the recommended approach to delegate the request to the device's native camera app, taking advantage of all its stability and compatibility.
-
-After capture, the photo is shown in an `ImageView` and the recorded video is received by `onActivityResult` and played directly in a `VideoView` on the main screen.
-
----
-
-## ✨ Main Features
-
-| Icon | Feature | Intent Used | Description |
-|:-----:|:---------------|:----------------:|:----------|
-| 📸 | **Take Photo** | `ACTION_IMAGE_CAPTURE` | Opens the device's native camera in photo mode and saves the result via `MediaStore`. |
-| 📹 | **Record Video** | `ACTION_VIDEO_CAPTURE` | Opens the native camera in video mode (high quality, 60s limit). |
-| 📺 | **Result Preview** | `onActivityResult` | Captures the returned media and displays it automatically in `ImageView`/`VideoView`. |
-| 🔐 | **Runtime Permissions** | `ActivityCompat.requestPermissions` | Requests `CAMERA`, `RECORD_AUDIO`, and (pre-Android 10) `WRITE_EXTERNAL_STORAGE`. |
-| 🎨 | **Custom UI** | — | Gradient background (`bg_gradient.xml`) and vector icons (`ic_camera.xml`, `ic_videocam.xml`). |
-
-> ⚠️ **Implementation Note:** The current version is fully wired to receive and play back recorded video. Displaying the returned photo via `ImageView` after `ACTION_IMAGE_CAPTURE` is implemented via `imageView.setImageURI(photoUri)`.
-
----
-
-## 🛠️ Technology Stack
-
-| Technology | Role in the Project |
-|:-----------|:------------------|
-| **Java 11** | Main language for all application logic. |
-| **Android SDK (API 24–35)** | Native framework for Android development. |
-| **XML (Layouts)** | Defines the UI: buttons, `VideoView`/`ImageView`, and visual structure. |
-| **Android Intents (MediaStore)** | `ACTION_IMAGE_CAPTURE` and `ACTION_VIDEO_CAPTURE` to delegate to the native camera. |
-| **ImageView / VideoView** | Native components for displaying captured photo/video. |
-| **AndroidManifest.xml** | Declares permissions and required hardware features. |
-| **Gradle (Kotlin DSL)** | Build system and dependency management. |
-
-### 🔐 Declared Permissions
-
-| Permission | Purpose |
-|:----------|:-----------|
-| `android.permission.CAMERA` | Access to the device camera. |
-| `android.permission.RECORD_AUDIO` | Audio capture during video recording. |
-| `android.permission.WRITE_EXTERNAL_STORAGE` (≤ API 28) | Writing media files on legacy storage. |
-| `android.hardware.camera` / `android.hardware.microphone` | Hardware features required by the app. |
-
----
-
-## 🔑 Implementation Highlights
-
-### 📷 Flow via Android Intents
-
-> The Intent-based approach is the simplest, safest, and most compatible way to use the camera on Android — without the complexity of managing a full camera preview pipeline or its lifecycle.
-
-```java
-// Example: trigger the camera to record a video
-Intent intent = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
-intent.putExtra(MediaStore.EXTRA_OUTPUT, videoUri);
-intent.putExtra(MediaStore.EXTRA_VIDEO_QUALITY, 1);
-intent.putExtra(MediaStore.EXTRA_DURATION_LIMIT, 60);
-startActivityForResult(intent, REQ_CAPTURE_VIDEO);
-
-// Receive the recorded video back
-@Override
-protected void onActivityResult(int req, int res, @Nullable Intent d) {
-    super.onActivityResult(req, res, d);
-    if (res != RESULT_OK) return;
-
-    if (req == REQ_CAPTURE_VIDEO) {
-        videoView.setVideoURI(videoUri);
-        videoView.start();
-    }
-}
-```
-
-**Summarized flow:**
-
-```
-👆 User taps "Record Video"
-          ↓
-🔐 checkPermissionsAndOpen() validates CAMERA / RECORD_AUDIO / STORAGE
-          ↓
-📤 startActivityForResult() fires the Intent
-          ↓
-📹 The device's native camera opens
-          ↓
-✅ User finishes recording
-          ↓
-📥 onActivityResult() receives the result
-          ↓
-📺 VideoView loads and plays the video
-```
-
----
-
-## 📂 Repository Structure
-
-```plaintext
-appcamera/
-│
-├── 📄 build.gradle.kts                    # ⚙️  Project-level configuration
-├── 📄 settings.gradle.kts                 # ⚙️  Gradle settings
-│
-└── 📁 app/
-    ├── 📄 build.gradle.kts                # ⚙️  'app' module configuration (minSdk 24, targetSdk 35)
-    │
-    └── 📁 src/main/
-        │
-        ├── 📄 AndroidManifest.xml         # 🔐 Permissions, features, and activities
-        │
-        ├── 📁 java/com/example/appcamera/
-        │   └── 📄 MainActivity.java       # 🧠 Core logic — Intents and Views ← CORE
-        │
-        └── 📁 res/
-            ├── 📁 layout/
-            │   └── 📄 activity_main.xml   # 🖼️  UI (buttons + ImageView/VideoView)
-            └── 📁 drawable/
-                ├── 📄 bg_gradient.xml     # 🎨 Gradient background
-                ├── 📄 ic_camera.xml       # 📸 Camera vector icon
-                └── 📄 ic_videocam.xml     # 🎥 Video vector icon
-```
-
----
-
-## 🚀 How to Run
-
-### 📋 Prerequisites
-
-| Requirement | Detail |
-|:----------|:--------|
-| **Android Studio** | Version **Hedgehog** or later, installed and configured. |
-| **JDK** | Version **11 or later** (usually bundled with Android Studio). |
-| **Device or Emulator** | Physical Android device (USB + debugging enabled) or AVD with camera configured. |
-
-### 🔧 Step by Step
-
-**1. Clone the repository:**
-
-```bash
-git clone https://github.com/VictorHJesusSantiago/appcamera.git
-```
-
-**2. Open in Android Studio:**
-
-```
-Android Studio → File → Open → Select the 'appcamera' folder
-```
-
-**3. Sync Gradle:**
-
-```
-Build → Sync Project with Gradle Files
-```
-
-**4. Run the application:**
-
-```
-Run → Run 'app'  (or click the ▶️ button on the toolbar)
-```
-
-**5. Grant the permissions:**
-
-> On first launch, Android will request **camera** and **audio** permissions. Grant them to enable all features.
-
-### 📱 Testing on the Emulator
-
-| Feature | How to Test on AVD |
-|:---------------|:-------------------|
-| 📸 **Take Photo** | The emulator has a configurable virtual camera under `Extended Controls → Camera`. |
-| 📹 **Record Video** | Available in the AVD's virtual camera; use `Extended Controls` to simulate. |
-| 📺 **Playback** | The video plays automatically in `VideoView` after recording. |
-
----
-
-## 🤝 How to Contribute
-
-| Step | Action | Command |
-|:-----:|:-----|:--------|
-| 1️⃣ | **Fork** | Create a fork of the repository. | — |
-| 2️⃣ | **Branch** | Create a feature branch from `main`. | `git checkout -b feature/NewFeature` |
-| 3️⃣ | **Commit** | Save changes with a clear, semantic message. | `git commit -m 'feat: Add NewFeature'` |
-| 4️⃣ | **Push** | Push the branch to the remote repository. | `git push origin feature/NewFeature` |
-| 5️⃣ | **Pull Request** | Open a PR describing the changes. | — |
-
-<div align="center">
-
-**If this project was useful for your studies, leave a ⭐️ on the repository!**
-
-</div>
-
----
-
-## 👨‍💻 Author
-
-<div align="center">
-
-**Victor H. J. Santiago**
-
-[![GitHub](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/VictorHJesusSantiago)
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/victor-henrique-de-jesus-santiago/)
-
-</div>
-
----
-
-## 📄 License
-
-<div align="center">
-
-This project is distributed under the **MIT License**.
-See the [`LICENSE`](./LICENSE) file in the repository for details.
-
-![License](https://img.shields.io/badge/License-MIT-blue?style=for-the-badge)
-
-</div>
-
----
-
-# 📋 Product & Engineering Documentation
-
-> The sections below document **AppCamera** using the same artifacts and notations applied to enterprise-grade projects (requirements engineering, UML, architecture, BPMN, UX, project management, security), **scaled down to the size and scope of this educational/demo application**. Each artifact is adapted in depth to the project's real complexity (a single-screen, single-Activity Android app) while keeping the same structure used across the author's portfolio.
-
----
-
-## 1. Requirements
+## 🌟 Overview
 
 <details>
 <summary>▶️ <strong>Click to expand / collapse this section</strong></summary>
 
-### 1.1 Functional Requirements (FR)
+**AppCamera** is a native Android application written in **Java** that captures photographs and records video by delegating to the device's system camera application through **implicit Intents**, then persists the resulting media into the public gallery using the **MediaStore** API.
 
-| ID | Requirement |
-|----|-------------|
-| FR01 | The system shall display a main screen with two buttons: "Take Photo" and "Record Video". |
-| FR02 | The system shall request `CAMERA` permission before any camera action. |
-| FR03 | The system shall request `RECORD_AUDIO` permission before starting a video recording. |
-| FR04 | On Android versions below API 29 (Q), the system shall request `WRITE_EXTERNAL_STORAGE` permission before saving media. |
-| FR05 | When "Take Photo" is tapped and permissions are granted, the system shall launch `ACTION_IMAGE_CAPTURE` with a `MediaStore`-generated output `Uri`. |
-| FR06 | When "Record Video" is tapped and permissions are granted, the system shall launch `ACTION_VIDEO_CAPTURE` with quality = high (1) and a 60-second duration limit. |
-| FR07 | On a successful photo result (`RESULT_OK`), the system shall hide `VideoView`, show `ImageView`, load the photo via `setImageURI`, and display a "Photo saved!" toast. |
-| FR08 | On a successful video result (`RESULT_OK`), the system shall hide `ImageView`, show `VideoView`, load and auto-play the video, and display a "Video saved!" toast. |
-| FR09 | If any required permission is denied, the system shall display a "Permission denied" toast and abort the capture flow. |
-| FR10 | Captured files shall be stored under `Pictures/AppCamera` (photos) or `Movies/AppCamera` (videos), via `MediaStore` on Android 10+ or the public directory on older versions. |
+Rather than reimplementing a camera preview stack (CameraX/Camera2), the application deliberately adopts the **Intent delegation model**: the OS camera app — already optimized, already trusted by the user, already handling autofocus, HDR, stabilization and lens selection — performs the capture, and AppCamera owns the *destination*, the *permission contract*, and the *preview surface*.
 
-### 1.2 Non-Functional Requirements (NFR)
+The result is an application that is small, dependency-light, forward-compatible across **Android 7.0 (API 24) through Android 15 (API 35)**, and correct with respect to the **scoped storage** rules introduced in Android 10 (API 29).
 
-| Category | ID | Requirement |
-|----------|----|-------------|
-| 🎯 Compatibility | NFR01 | The app must run on Android 7.0 (API 24) through Android 15 (API 35). |
-| ⚡ Performance | NFR02 | Camera launch must add no perceptible overhead beyond the native camera app's own startup time. |
-| 🖥️ Usability | NFR03 | Any capture action must be reachable in at most two taps from the main screen. |
-| 🔐 Security | NFR04 | The app must never request a permission it does not immediately use. |
-| 🧩 Maintainability | NFR05 | All capture logic must remain in a single `Activity` with named request-code constants for readability. |
-| 🛡️ Reliability | NFR06 | Denied permissions must degrade gracefully (toast message), never crash the app. |
-| 💾 Storage | NFR07 | On Android 10+, the app must use Scoped Storage (`MediaStore` `insert`) instead of direct file paths. |
-| 🌍 Portability | NFR08 | The project must build with a single Gradle module, no external backend dependency. |
+### 🎯 System Objectives
 
-### 1.3 Business Rules (BR)
-
-| ID | Rule |
-|----|------|
-| BR01 | Camera permission is mandatory — without it, neither photo nor video capture can proceed. |
-| BR02 | Audio permission is required **only** for video capture, not for photos. |
-| BR03 | On Android < 10, storage permission is mandatory to persist captured media. |
-| BR04 | Every recorded video is limited to **60 seconds** and recorded at **high quality**. |
-| BR05 | Only the **most recently captured** photo or video is shown in the preview area (no history/gallery). |
-| BR06 | Media files are namespaced under an `AppCamera` sub-folder inside `Pictures`/`Movies`. |
-
-### 1.4 Domain Requirements
-
-The application operates within the **mobile media capture** domain. Core domain concepts:
-
-| Concept | Description |
-|---------|-------------|
-| **Capture Session** | A single user-initiated attempt to take a photo or record a video. |
-| **Media Output** | The resulting `Photo` or `Video` artifact, represented by a `Uri`. |
-| **Permission Grant** | The OS-level authorization state (`CAMERA`, `RECORD_AUDIO`, `WRITE_EXTERNAL_STORAGE`) required before a Capture Session can start. |
-| **Native Camera App** | The external Android component that performs the actual capture, delegated to via Intent. |
-
-### 1.5 Data Requirements
-
-- No application-level database is used; all persisted data are **MediaStore entries**.
-- Each entry stores `DISPLAY_NAME`, `MIME_TYPE`, and `RELATIVE_PATH` (`Pictures/AppCamera` or `Movies/AppCamera`).
-- No personal data is collected, transmitted, or stored beyond the media files themselves, which remain on-device.
-- The app does not require network access and has no remote data requirements.
-
-### 1.6 Interface Requirements
-
-- Single `Activity` (`MainActivity`) with a vertical `LinearLayout`.
-- Title (`TextView`), preview area (`CardView` containing `ImageView` + `VideoView`, mutually exclusive visibility), and two `MaterialButton`s ("Take Photo", "Record Video").
-- Visual identity: gradient background (`bg_gradient.xml`), vector icons for camera and video actions.
-- Feedback exclusively via Android `Toast` messages (no custom dialogs).
-
-### 1.7 Legal / Regulatory Requirements
-
-| Requirement | Description |
-|-------------|-------------|
-| Runtime Permissions Model | Must comply with Android's runtime permission model (API 23+) for `CAMERA`, `RECORD_AUDIO`, and `WRITE_EXTERNAL_STORAGE`. |
-| Manifest Declarations | All used permissions/features must be explicitly declared in `AndroidManifest.xml` with the minimum scope necessary. |
-| LGPD / GDPR | Camera and microphone capture personal data (images/audio of the user or third parties). Since AppCamera stores data **locally only**, with no transmission to servers or third parties, the data-controller obligations under LGPD (Brazil) / GDPR (EU) are minimal, but the app must not silently add cloud sync without informing the user. |
-| Play Store Policy | If published, the app must declare camera/microphone usage in the Play Console Data Safety form. |
-
-### 1.8 User Stories
-
-| ID | As a... | I want to... | So that... |
-|----|---------|---------------|------------|
-| US01 | mobile user | tap a "Take Photo" button | I can quickly capture a picture without leaving the app |
-| US02 | mobile user | tap a "Record Video" button | I can record a short video clip directly from the app |
-| US03 | mobile user | be asked for camera/audio permissions only when needed | I understand why the app needs each permission |
-| US04 | mobile user | see the photo I just took immediately on screen | I can confirm the capture worked |
-| US05 | mobile user | see the video I just recorded play automatically | I can review the recording without extra steps |
-| US06 | mobile user | be notified when a permission is denied | I understand why the action did not happen |
-
-### 1.9 Epics
-
-| Epic | Description | Related Stories |
-|------|-------------|------------------|
-| EP01 — Media Capture | Enable photo and video capture via the native camera. | US01, US02 |
-| EP02 — Permission Management | Handle all runtime permission requests gracefully. | US03, US06 |
-| EP03 — Media Preview | Display the captured media immediately after capture. | US04, US05 |
-
-### 1.10 Features
-
-| Feature | Epic | Status |
-|---------|------|--------|
-| Take Photo button + `ACTION_IMAGE_CAPTURE` | EP01 | ✅ Implemented |
-| Record Video button + `ACTION_VIDEO_CAPTURE` (60s, high quality) | EP01 | ✅ Implemented |
-| Runtime permission requests (Camera/Audio/Storage) | EP02 | ✅ Implemented |
-| Permission-denied feedback (Toast) | EP02 | ✅ Implemented |
-| Auto-display of captured photo in `ImageView` | EP03 | ✅ Implemented |
-| Auto-play of recorded video in `VideoView` | EP03 | ✅ Implemented |
-| Media gallery / history of past captures | EP03 | 🔲 Backlog |
-
-### 1.11 Use Cases
-
-#### UC01 — Take a Photo
-
-- **Actor:** App User
-- **Precondition:** App is open on the main screen.
-- **Main flow:**
-  1. User taps "Take Photo".
-  2. System checks `CAMERA` permission; requests it if missing.
-  3. System (on Android Q+) creates a `MediaStore` entry and obtains a `photoUri`.
-  4. System launches `ACTION_IMAGE_CAPTURE` with `EXTRA_OUTPUT = photoUri`.
-  5. Native camera app opens; user takes the photo.
-  6. `onActivityResult` receives `RESULT_OK`; system shows the photo in `ImageView`.
-- **Alternative flow:** Permission denied → Toast "Permission denied", flow ends.
-
-#### UC02 — Record a Video
-
-- **Actor:** App User
-- **Precondition:** App is open on the main screen.
-- **Main flow:**
-  1. User taps "Record Video".
-  2. System checks `CAMERA` and `RECORD_AUDIO` permissions; requests any missing.
-  3. System creates a `MediaStore` video entry and obtains a `videoUri`.
-  4. System launches `ACTION_VIDEO_CAPTURE` (quality=1, duration limit=60s).
-  5. Native camera app opens; user records and finishes the video.
-  6. `onActivityResult` receives `RESULT_OK`; system shows and auto-plays the video in `VideoView`.
-- **Alternative flow:** Permission denied → Toast "Permission denied", flow ends.
-
-#### UC03 — Grant Runtime Permissions
-
-- **Actor:** App User, Android OS
-- **Main flow:**
-  1. System detects a missing permission and calls `requestPermissions`.
-  2. OS shows the system permission dialog.
-  3. User grants or denies.
-  4. `onRequestPermissionsResult` re-attempts the camera flow on grant, or shows a Toast on denial.
-
-### 1.12 Acceptance Criteria
-
-| Story | Acceptance Criteria |
-|-------|----------------------|
-| US01 | Given the app is open, when the user taps "Take Photo" and grants Camera permission, then the native camera opens in photo mode. |
-| US02 | Given the app is open, when the user taps "Record Video" and grants Camera + Audio permissions, then the native camera opens in video mode with a 60s limit. |
-| US04 | Given a photo was just captured, when control returns to the app, then `ImageView` is visible, `VideoView` is hidden, and the photo is displayed. |
-| US05 | Given a video was just recorded, when control returns to the app, then `VideoView` is visible, `ImageView` is hidden, and the video starts playing automatically. |
-| US06 | Given a required permission is denied, when the user attempts a capture, then a "Permission denied" toast is shown and no camera intent is launched. |
-
-### 1.13 BDD Scenarios (Given/When/Then)
-
-```gherkin
-Feature: Photo capture via native camera
-
-  Scenario: Successful photo capture
-    Given the app is on the main screen
-    And the user has granted the CAMERA permission
-    When the user taps "Take Photo"
-    And completes the capture in the native camera app
-    Then the app displays the captured photo in the preview area
-    And shows the message "Photo saved!"
-
-  Scenario: Video capture with audio permission denied
-    Given the app is on the main screen
-    And the user has NOT granted the RECORD_AUDIO permission
-    When the user taps "Record Video"
-    Then the system requests the RECORD_AUDIO permission
-    And if the user denies it
-    Then the app shows the message "Permission denied"
-    And does not launch the video capture intent
-
-  Scenario: Video capture exceeds the configured limit
-    Given the user is recording a video via the native camera
-    When the recording reaches 60 seconds
-    Then the native camera automatically stops the recording
-    And returns the video file to AppCamera
-```
-
-### 1.14 Product Backlog
-
-| Priority | Item | Type |
-|----------|------|------|
-| 1 | Take Photo via `ACTION_IMAGE_CAPTURE` | Feature (done) |
-| 2 | Record Video via `ACTION_VIDEO_CAPTURE` | Feature (done) |
-| 3 | Runtime permission handling | Feature (done) |
-| 4 | Preview of last captured media | Feature (done) |
-| 5 | In-app gallery of previously captured media | Feature (backlog) |
-| 6 | Switch front/back camera before capture | Enhancement (backlog) |
-| 7 | Share captured media via `Intent.ACTION_SEND` | Enhancement (backlog) |
-| 8 | Configurable video duration limit (UI control) | Enhancement (backlog) |
-| 9 | Unit tests for permission-checking logic | Tech debt (backlog) |
-| 10 | Dark mode support | Enhancement (backlog) |
-
-### 1.15 Domain Glossary
-
-| Term | Definition |
-|------|------------|
-| **Intent** | Android messaging object used to request an action from another app component (here, the native camera). |
-| **MediaStore** | Android content provider that indexes shared media files (images, videos, audio). |
-| **Uri** | Uniform Resource Identifier pointing to a content/file location, used to read/write media. |
-| **ContentResolver** | API used to interact with content providers such as `MediaStore`. |
-| **Activity Result** | The mechanism (`startActivityForResult`/`onActivityResult`) by which a launched Activity returns data to the caller. |
-| **Scoped Storage** | Android 10+ storage model restricting direct file-path access in favor of `MediaStore`/`ContentResolver`. |
-| **Toast** | Small, transient Android UI message shown to the user. |
-| **Runtime Permission** | A permission that must be requested from the user at execution time (Android 6.0+). |
-
-### 1.16 Requirements Traceability Matrix
-
-| Requirement | User Story | Use Case | Acceptance Criteria | Verified By |
-|-------------|------------|----------|----------------------|-------------|
-| FR01, FR05 | US01 | UC01 | US01 AC | Manual test on emulator/device |
-| FR06, FR08 | US02, US05 | UC02 | US02, US05 AC | Manual test on emulator/device |
-| FR02–FR04, FR09 | US03, US06 | UC03 | US06 AC | Manual test (deny permission) |
-| FR07 | US04 | UC01 | US04 AC | Manual test on emulator/device |
-| FR10, BR06 | — | UC01, UC02 | — | Inspect `Pictures/AppCamera`, `Movies/AppCamera` |
-
-### 1.17 Software Requirements Specification (SRS) — Summary
-
-| SRS Section (IEEE 830-style) | Reference |
-|-------------------------------|-----------|
-| 1. Introduction / Purpose | [About the Project](#-about-the-project), [Vision Document](#118-vision-document) |
-| 2. Overall Description | [Domain Requirements](#14-domain-requirements), [Architecture](#4-architecture) |
-| 3. Specific Requirements (Functional) | [1.1 Functional Requirements](#11-functional-requirements-fr) |
-| 4. Non-Functional Requirements | [1.2 Non-Functional Requirements](#12-non-functional-requirements-nfr) |
-| 5. External Interface Requirements | [1.6 Interface Requirements](#16-interface-requirements) |
-| 6. Data Requirements | [1.5 Data Requirements](#15-data-requirements), [3. Data Modeling](#3-data-modeling) |
-| 7. Constraints & Compliance | [1.7 Legal/Regulatory Requirements](#17-legal--regulatory-requirements) |
-| 8. Appendices (Glossary, Traceability) | [1.15 Glossary](#115-domain-glossary), [1.16 Traceability Matrix](#116-requirements-traceability-matrix) |
-
-### 1.18 Vision Document
-
-| Item | Description |
-|------|-------------|
-| **Product Name** | AppCamera |
-| **Vision Statement** | Provide a minimal, reliable reference implementation of camera/video capture on Android using Intents, suitable as a learning resource and as a starting point for apps that need quick media-capture capability. |
-| **Target Users** | Android developers learning Intent-based media capture; students; recruiters reviewing the author's portfolio. |
-| **Business Goals** | Demonstrate solid understanding of Android permissions, Intents, MediaStore, and Activity result handling. |
-| **Success Metrics** | App builds and runs on a clean Android Studio install; both capture flows work end-to-end on an emulator with virtual camera. |
-| **Out of Scope** | Cloud storage/sync, social sharing, image/video editing, multi-camera support. |
-
-### 1.19 Prioritization Matrix (MoSCoW)
-
-| Item | M | S | C | W |
-|------|---|---|---|---|
-| Take Photo via native camera | ✅ | | | |
-| Record Video via native camera | ✅ | | | |
-| Runtime permission handling | ✅ | | | |
-| Auto preview of captured media | ✅ | | | |
-| In-app media gallery | | ✅ | | |
-| Share captured media | | ✅ | | |
-| Front/back camera switch | | | ✅ | |
-| Cloud backup of media | | | | ✅ |
-
-> **M**ust have · **S**hould have · **C**ould have · **W**on't have (this release)
-
-</details>
+| Objective | Description |
+|-----------|-------------|
+| 📸 **Photo Capture** | Capture still images at full device resolution via `ACTION_IMAGE_CAPTURE` |
+| 🎥 **Video Recording** | Record video with a 60-second cap and high-quality profile via `ACTION_VIDEO_CAPTURE` |
+| 🔐 **Runtime Permissions** | Sequential, non-blocking request of `CAMERA`, `RECORD_AUDIO` and legacy `WRITE_EXTERNAL_STORAGE` |
+| 🗄️ **Scoped Storage** | Dual-path persistence: `MediaStore` on API 29+, direct `File` I/O on API 24–28 |
+| 🖼️ **Instant Preview** | In-app display of the captured photo (`ImageView`) or playback of the recording (`VideoView`) |
+| 🎨 **Material Design 3** | Material components, gradient background, adaptive icons, light and dark themes |
+| 📁 **Gallery Integration** | Media written to `Pictures/AppCamera` and `Movies/AppCamera`, visible to every gallery app |
+| 🧪 **Quality** | Instrumented and unit test scaffolding via JUnit 4 and Espresso |
 
 ---
 
-## 2. UML Diagrams
+</details>
+
+## 🏗️ System Architecture
 
 <details>
 <summary>▶️ <strong>Click to expand / collapse this section</strong></summary>
 
-### 2.1 Use Case Diagram
+### Module Diagram
+
+```mermaid
+flowchart TB
+    subgraph UI["📱  INTERFACE LAYER"]
+        direction LR
+        LAYOUT["🪟 activity_main.xml\n─────────────\nConstraintLayout\nMaterialButton x2\nCardView | ImageView\nVideoView"]
+        THEME["🎨 themes.xml\n─────────────\nMaterial3 DayNight\nbg_gradient.xml\ncolors.xml"]
+    end
+
+    subgraph ORCH["🏛️  ORCHESTRATOR"]
+        MAIN["MainActivity.java\n─────────────────────\n• Lifecycle management\n• Click routing\n• Permission arbitration\n• Result dispatch"]
+    end
+
+    subgraph CORE["⚙️  FUNCTIONAL UNITS  (in-Activity)"]
+        direction TB
+        PERM["🔐 checkPermissionsAndOpen\nPermission Gate\n────────────\nCAMERA\nRECORD_AUDIO\nWRITE_EXTERNAL_STORAGE"]
+        PHOTO["📸 openCamera\nPhoto Pipeline\n────────────\nACTION_IMAGE_CAPTURE\nEXTRA_OUTPUT\nJPEG · timestamp name"]
+        VIDEO["🎥 openVideoRecorder\nVideo Pipeline\n────────────\nACTION_VIDEO_CAPTURE\nQUALITY=1 · 60s limit\nMP4 · timestamp name"]
+        RESULT["↩️ onActivityResult\nResult Dispatcher\n────────────\nRESULT_OK gate\nView visibility swap\nToast feedback"]
+    end
+
+    subgraph SYS["🤖  ANDROID SYSTEM"]
+        direction LR
+        CAMAPP["📷 System Camera App\n─────────────\nResolves implicit Intent\nOwns capture UX"]
+        MSTORE[("🗄️ MediaStore\nAPI 29+\n─────────────\nImages.Media\nVideo.Media\nRELATIVE_PATH")]
+        FILESYS[("📂 External Storage\nAPI 24-28\n─────────────\nDIRECTORY_PICTURES\nDIRECTORY_MOVIES\nUri.fromFile")]
+    end
+
+    subgraph OUT["💾  OUTPUT"]
+        GALLERY["🖼️ Device Gallery\n──────────────────────\nPictures/AppCamera/*.jpg\nMovies/AppCamera/*.mp4"]
+    end
+
+    LAYOUT -->|"setOnClickListener"| MAIN
+    THEME -.->|"styles"| LAYOUT
+    MAIN --> PERM
+    PERM -->|"granted"| PHOTO & VIDEO
+    PHOTO -->|"startActivityForResult"| CAMAPP
+    VIDEO -->|"startActivityForResult"| CAMAPP
+    PHOTO -->|"insert()"| MSTORE
+    VIDEO -->|"insert()"| MSTORE
+    PHOTO -.->|"API < 29"| FILESYS
+    VIDEO -.->|"API < 29"| FILESYS
+    CAMAPP -->|"writes to Uri"| MSTORE & FILESYS
+    CAMAPP -->|"result code"| RESULT
+    RESULT -->|"setImageURI / setVideoURI"| LAYOUT
+    MSTORE --> GALLERY
+    FILESYS --> GALLERY
+
+    style UI fill:#1e3a5f,color:#fff,stroke:#4a90d9
+    style ORCH fill:#1a3a1a,color:#fff,stroke:#4caf50
+    style CORE fill:#3a1a1a,color:#fff,stroke:#e57373
+    style SYS fill:#3a2a1a,color:#fff,stroke:#ffb74d
+    style OUT fill:#2a1a3a,color:#fff,stroke:#ce93d8
+```
+
+### Architecture Layers
 
 ```mermaid
 flowchart LR
-    actor(["🧑 App User"])
-    os(["🤖 Android OS / Native Camera"])
+    subgraph L1["📱 Presentation"]
+        A1["XML Layouts"]
+        A2["Material Components"]
+    end
+    subgraph L2["🏛️ Application"]
+        B1["MainActivity\nLifecycle + Routing"]
+    end
+    subgraph L3["⚙️ Domain"]
+        C1["Capture Rules\nPermission · Naming · Limits"]
+    end
+    subgraph L4["💾 Infrastructure"]
+        D1["MediaStore\n(ContentResolver)"]
+        D2["File System\n(Legacy path)"]
+    end
 
-    actor --> UC1(("Take Photo"))
-    actor --> UC2(("Record Video"))
-    actor --> UC3(("Grant Permissions"))
-    UC1 -.includes.-> UC3
-    UC2 -.includes.-> UC3
-    UC1 --> os
-    UC2 --> os
+    L1 --> L2 --> L3 --> L4
+
+    style L1 fill:#1565C0,color:#fff
+    style L2 fill:#2E7D32,color:#fff
+    style L3 fill:#6A1B9A,color:#fff
+    style L4 fill:#BF360C,color:#fff
 ```
 
-### 2.2 Class Diagram
+---
+
+</details>
+
+## 🛠️ Technology Stack
+
+<details>
+<summary>▶️ <strong>Click to expand / collapse this section</strong></summary>
+
+<table>
+<thead>
+<tr>
+<th>Layer</th>
+<th>Technology</th>
+<th>Version</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td rowspan="2"><strong>🧠 Language</strong></td>
+<td>Java</td>
+<td>11</td>
+<td>Application source language (<code>sourceCompatibility</code> / <code>targetCompatibility</code>)</td>
+</tr>
+<tr>
+<td>XML</td>
+<td>—</td>
+<td>Layouts, themes, colors, drawables, manifest</td>
+</tr>
+<tr>
+<td rowspan="3"><strong>🤖 Platform</strong></td>
+<td>Android SDK</td>
+<td>compile 35</td>
+<td>Compilation target (Android 15)</td>
+</tr>
+<tr>
+<td>Min SDK</td>
+<td>24</td>
+<td>Android 7.0 Nougat floor</td>
+</tr>
+<tr>
+<td>Target SDK</td>
+<td>35</td>
+<td>Behaviour opt-in for Android 15</td>
+</tr>
+<tr>
+<td rowspan="4"><strong>🎨 UI</strong></td>
+<td>Material Components</td>
+<td>Material 3</td>
+<td><code>MaterialButton</code>, theming, ripple, elevation</td>
+</tr>
+<tr>
+<td>ConstraintLayout</td>
+<td>latest</td>
+<td>Flat, responsive layout hierarchy</td>
+</tr>
+<tr>
+<td>CardView</td>
+<td>AndroidX</td>
+<td>Elevated preview container</td>
+</tr>
+<tr>
+<td>EdgeToEdge</td>
+<td>androidx.activity</td>
+<td>Immersive edge-to-edge window insets</td>
+</tr>
+<tr>
+<td rowspan="3"><strong>💾 Storage</strong></td>
+<td>MediaStore</td>
+<td>API 29+</td>
+<td>Scoped storage inserts via <code>ContentResolver</code></td>
+</tr>
+<tr>
+<td>Environment / File</td>
+<td>API 24–28</td>
+<td>Legacy public-directory writes</td>
+</tr>
+<tr>
+<td>ContentValues</td>
+<td>—</td>
+<td><code>DISPLAY_NAME</code>, <code>MIME_TYPE</code>, <code>RELATIVE_PATH</code> metadata</td>
+</tr>
+<tr>
+<td rowspan="2"><strong>🔧 Build</strong></td>
+<td>Gradle</td>
+<td>Kotlin DSL</td>
+<td><code>build.gradle.kts</code> + version catalog</td>
+</tr>
+<tr>
+<td>Version Catalog</td>
+<td><code>libs.versions.toml</code></td>
+<td>Centralized dependency coordinates</td>
+</tr>
+<tr>
+<td rowspan="2"><strong>🧪 Testing</strong></td>
+<td>JUnit</td>
+<td>4</td>
+<td>Local unit tests (<code>src/test</code>)</td>
+</tr>
+<tr>
+<td>Espresso + AndroidX Test</td>
+<td>latest</td>
+<td>Instrumented UI tests (<code>src/androidTest</code>)</td>
+</tr>
+</tbody>
+</table>
+
+---
+
+</details>
+
+## 🎨 Design Patterns Applied
+
+<details>
+<summary>▶️ <strong>Click to expand / collapse this section</strong></summary>
+
+| Pattern | Where | Rationale |
+|---------|-------|-----------|
+| 🎯 **Delegation** | `openCamera()` / `openVideoRecorder()` | Capture is delegated to the system camera app rather than reimplemented |
+| 🧭 **Facade** | `checkPermissionsAndOpen(boolean)` | One entry point hides permission checks, SDK branching and Intent construction |
+| 🔀 **Strategy (runtime branch)** | `Build.VERSION.SDK_INT >= Q` | MediaStore strategy vs. legacy `File` strategy selected at runtime |
+| 👂 **Observer / Callback** | `setOnClickListener`, `onActivityResult`, `onRequestPermissionsResult` | Event-driven reaction to UI and system callbacks |
+| 🚦 **Guard Clause** | Permission gate, `if (res != RESULT_OK) return;` | Early exit keeps the happy path flat and readable |
+| 🏷️ **Constant Registry** | `REQ_CAM`, `REQ_WRITE`, `REQ_CAPTURE_PHOTO`, `REQ_CAPTURE_VIDEO` | Named request codes make callback dispatch self-documenting |
+| 🔄 **State Toggle** | `ImageView` / `VideoView` visibility swap | A single preview slot alternates between two media types |
+| 🧱 **Template Resource** | `themes.xml` + `values-night/themes.xml` | The same theme name resolves differently per system appearance |
+
+---
+
+</details>
+
+## 📁 Project Structure
+
+<details>
+<summary>▶️ <strong>Click to expand / collapse this section</strong></summary>
+
+```
+AppCamera/
+│
+├── 📄 build.gradle.kts                  # Root build script (plugin declarations)
+├── 📄 settings.gradle.kts               # Module inclusion + repository config
+├── 📄 gradle.properties                 # JVM args, AndroidX flags
+├── 📄 local.properties                  # Local SDK path (not versioned)
+├── 📄 gradlew / gradlew.bat             # Gradle wrapper launchers
+│
+├── 📂 gradle/
+│   ├── 📄 libs.versions.toml            # Version catalog — single source of dependency truth
+│   └── 📂 wrapper/
+│       ├── gradle-wrapper.jar
+│       └── gradle-wrapper.properties    # Pinned Gradle distribution
+│
+├── 📂 app/
+│   ├── 📄 build.gradle.kts              # Module build: SDKs, buildTypes, dependencies
+│   ├── 📄 proguard-rules.pro            # R8/ProGuard keep rules (release)
+│   │
+│   └── 📂 src/
+│       ├── 📂 main/
+│       │   ├── 📄 AndroidManifest.xml    # Permissions, features, activity registration
+│       │   │
+│       │   ├── 📂 java/com/example/appcamera/
+│       │   │   └── 📄 MainActivity.java  # ★ Entire application logic (161 lines)
+│       │   │
+│       │   └── 📂 res/
+│       │       ├── 📂 layout/
+│       │       │   └── activity_main.xml       # Root ConstraintLayout + preview + buttons
+│       │       ├── 📂 drawable/
+│       │       │   ├── bg_gradient.xml         # Gradient window background
+│       │       │   ├── ic_camera.xml           # Photo button vector icon
+│       │       │   ├── ic_videocam.xml         # Video button vector icon
+│       │       │   ├── ic_launcher_background.xml
+│       │       │   └── ic_launcher_foreground.xml
+│       │       ├── 📂 mipmap-anydpi-v26/
+│       │       │   ├── ic_launcher.xml         # Adaptive icon (API 26+)
+│       │       │   └── ic_launcher_round.xml
+│       │       ├── 📂 mipmap-{m,h,xh,xxh,xxxh}dpi/
+│       │       │   └── ic_launcher*.webp       # Density-bucketed raster icons
+│       │       ├── 📂 values/
+│       │       │   ├── colors.xml              # Palette tokens
+│       │       │   ├── strings.xml             # Externalized UI strings
+│       │       │   └── themes.xml              # Light theme (Material 3)
+│       │       ├── 📂 values-night/
+│       │       │   └── themes.xml              # Dark theme override
+│       │       └── 📂 xml/
+│       │           ├── backup_rules.xml        # Auto Backup inclusion rules
+│       │           └── data_extraction_rules.xml # Device-transfer rules (API 31+)
+│       │
+│       ├── 📂 test/java/com/example/appcamera/
+│       │   └── ExampleUnitTest.java      # JVM-local unit test
+│       │
+│       └── 📂 androidTest/java/com/example/appcamera/
+│           └── ExampleInstrumentedTest.java  # On-device instrumented test
+│
+├── 📄 README.md                          # 🇺🇸 English (primary)
+├── 📄 README_PT.md                       # 🇧🇷 Português
+└── 📄 README_ES.md                       # 🇪🇸 Español
+```
+
+---
+
+</details>
+
+## 📦 System Modules
+
+<details>
+<summary>▶️ <strong>Click to expand / collapse this section</strong></summary>
+
+### 🏛️ MainActivity — Main Orchestrator
+
+The single `Activity` of the application. It owns the lifecycle, resolves view references, wires click listeners, and dispatches every system callback.
+
+| Responsibility | Implementation |
+|----------------|----------------|
+| Lifecycle entry | `onCreate(Bundle)` — enables edge-to-edge, inflates `activity_main` |
+| View binding | `findViewById` for `imageView`, `videoView`, `btnCapturePhoto`, `btnRecordVideo` |
+| Click routing | Lambda listeners → `checkPermissionsAndOpen(true \| false)` |
+| Permission callback | `onRequestPermissionsResult(int, String[], int[])` |
+| Result callback | `onActivityResult(int, int, Intent)` |
+| Held state | `Uri photoUri`, `Uri videoUri` — the destination handed to the camera app |
+
+**Request-code registry**
+
+| Constant | Value | Meaning |
+|----------|-------|---------|
+| `REQ_CAM` | `100` | Camera / audio permission request |
+| `REQ_WRITE` | `101` | Legacy storage permission request |
+| `REQ_CAPTURE_PHOTO` | `1` | Photo capture activity result |
+| `REQ_CAPTURE_VIDEO` | `2` | Video capture activity result |
+
+---
+
+### 🔐 Permission Gate — Runtime Authorization
+
+`checkPermissionsAndOpen(boolean isPhoto)` implements a **sequential guard chain**. Each check either returns early to request a missing permission, or falls through to the next.
+
+| Order | Permission | Condition | Request code |
+|-------|-----------|-----------|--------------|
+| 1 | `Manifest.permission.CAMERA` | Always required | `REQ_CAM` |
+| 2 | `Manifest.permission.RECORD_AUDIO` | Only when `isPhoto == false` | `REQ_CAM` |
+| 3 | `Manifest.permission.WRITE_EXTERNAL_STORAGE` | Only when `SDK_INT < Q` (API 29) | `REQ_WRITE` |
+
+Once the chain is fully satisfied, control branches to `openCamera()` or `openVideoRecorder()`.
+
+> [!NOTE]
+> The chain requests **one permission per invocation**. The user therefore sees dialogs one at a time, and the flow resumes from `onRequestPermissionsResult`.
+
+---
+
+### 📸 Photo Capture — Image Pipeline
+
+`openCamera()` prepares a writable destination and hands it to the system camera.
+
+| Step | API 29+ (Scoped Storage) | API 24–28 (Legacy) |
+|------|--------------------------|--------------------|
+| Metadata | `ContentValues` with `DISPLAY_NAME`, `MIME_TYPE`, `RELATIVE_PATH` | — |
+| Filename | `System.currentTimeMillis() + ".jpg"` | `System.currentTimeMillis() + ".jpg"` |
+| MIME type | `image/jpeg` | implicit |
+| Location | `Environment.DIRECTORY_PICTURES + "/AppCamera"` | `getExternalStoragePublicDirectory(DIRECTORY_PICTURES)/AppCamera` |
+| Uri source | `contentResolver.insert(Images.Media.EXTERNAL_CONTENT_URI, vals)` | `Uri.fromFile(file)` |
+| Directory creation | Handled by MediaStore | `dir.mkdirs()` when absent |
+
+The Intent is then dispatched:
+
+```java
+Intent i = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+i.putExtra(MediaStore.EXTRA_OUTPUT, photoUri);
+startActivityForResult(i, REQ_CAPTURE_PHOTO);
+```
+
+Because `EXTRA_OUTPUT` is supplied, the camera writes the **full-resolution** image to the given `Uri` instead of returning a downscaled thumbnail in the result `Intent`.
+
+---
+
+### 🎥 Video Capture — Recording Pipeline
+
+`openVideoRecorder()` mirrors the photo pipeline against the video collection, then adds two recording constraints.
+
+| Parameter | Value | Effect |
+|-----------|-------|--------|
+| Action | `MediaStore.ACTION_VIDEO_CAPTURE` | Opens the system recorder |
+| `EXTRA_OUTPUT` | `videoUri` | Destination for the encoded file |
+| `EXTRA_VIDEO_QUALITY` | `1` | High-quality profile (`0` would be low) |
+| `EXTRA_DURATION_LIMIT` | `60` | Hard stop at 60 seconds |
+| Filename | `System.currentTimeMillis() + ".mp4"` | Collision-free, chronologically sortable |
+| MIME type | `video/mp4` | Registered with MediaStore |
+| Location | `Movies/AppCamera` | Gallery-visible directory |
+
+---
+
+### 🖼️ Media Preview — Playback Surface
+
+`onActivityResult` is the single point where captured media becomes visible. It first applies a guard — `if (res != RESULT_OK) return;` — so a cancelled capture leaves the previous preview untouched.
+
+| Request | View shown | View hidden | Action | Feedback |
+|---------|-----------|-------------|--------|----------|
+| `REQ_CAPTURE_PHOTO` | `imageView` (`VISIBLE`) | `videoView` (`GONE`) | `imageView.setImageURI(photoUri)` | Toast: *Foto salva!* |
+| `REQ_CAPTURE_VIDEO` | `videoView` (`VISIBLE`) | `imageView` (`GONE`) | `setVideoURI(videoUri)` + `start()` | Toast: *Vídeo salvo!* |
+
+The two views occupy the same slot inside a `CardView`; only one is ever visible, which keeps the layout height stable.
+
+---
+
+### 🗄️ Storage Adapter — MediaStore / Legacy
+
+The SDK branch is duplicated deliberately in both capture methods so that each pipeline owns its own collection URI and directory constant.
+
+| Concern | API 29+ | API 24–28 |
+|---------|---------|-----------|
+| Permission needed to write | None (own-app inserts) | `WRITE_EXTERNAL_STORAGE` |
+| Collection (photo) | `MediaStore.Images.Media.EXTERNAL_CONTENT_URI` | `Environment.DIRECTORY_PICTURES` |
+| Collection (video) | `MediaStore.Video.Media.EXTERNAL_CONTENT_URI` | `Environment.DIRECTORY_MOVIES` |
+| Sub-folder mechanism | `RELATIVE_PATH` column | Physical `File` + `mkdirs()` |
+| Media-scanner indexing | Automatic | Automatic on most OEM builds |
+| Uri scheme | `content://` | `file://` |
+
+---
+
+### 🎨 Theme & Resources — Material Design 3
+
+| Resource | File | Role |
+|----------|------|------|
+| Light theme | `values/themes.xml` | Material 3 DayNight parent, brand colors |
+| Dark theme | `values-night/themes.xml` | Overrides resolved automatically by the system |
+| Palette | `values/colors.xml` | Named color tokens shared by both themes |
+| Strings | `values/strings.xml` | Externalized labels — translation-ready |
+| Background | `drawable/bg_gradient.xml` | Vector gradient applied to the root layout |
+| Icons | `drawable/ic_camera.xml`, `ic_videocam.xml` | Vector button glyphs, tint-aware |
+| Launcher | `mipmap-anydpi-v26/ic_launcher.xml` | Adaptive icon (background + foreground layers) |
+| Backup policy | `xml/backup_rules.xml`, `xml/data_extraction_rules.xml` | Declares what is included in Auto Backup / device transfer |
+
+---
+
+</details>
+
+## 💼 Business Rules
+
+<details>
+<summary>▶️ <strong>Click to expand / collapse this section</strong></summary>
+
+### 📸 Capture Rules
+
+| # | Rule | Enforcement |
+|---|------|-------------|
+| BR-01 | Photo capture requires `CAMERA` permission | Guard chain returns before Intent dispatch |
+| BR-02 | Video recording requires `CAMERA` **and** `RECORD_AUDIO` | Second guard applies only when `isPhoto == false` |
+| BR-03 | On API < 29, writing also requires `WRITE_EXTERNAL_STORAGE` | Third guard, SDK-conditioned |
+| BR-04 | A capture destination `Uri` must exist **before** the Intent is dispatched | `photoUri` / `videoUri` assigned in the same method |
+| BR-05 | Video recordings are capped at 60 seconds | `EXTRA_DURATION_LIMIT = 60` |
+| BR-06 | Video is recorded at the high-quality profile | `EXTRA_VIDEO_QUALITY = 1` |
+| BR-07 | A cancelled or failed capture must not alter the preview | `if (res != RESULT_OK) return;` |
+| BR-08 | Photo and video previews are mutually exclusive | Visibility swap in `onActivityResult` |
+
+### 🏷️ File Naming Rules
+
+| # | Rule | Detail |
+|---|------|--------|
+| BR-09 | Filenames are epoch-millisecond timestamps | `System.currentTimeMillis()` |
+| BR-10 | Photo extension is always `.jpg`, MIME `image/jpeg` | Fixed by the pipeline |
+| BR-11 | Video extension is always `.mp4`, MIME `video/mp4` | Fixed by the pipeline |
+| BR-12 | Photos live under `Pictures/AppCamera` | `RELATIVE_PATH` or physical folder |
+| BR-13 | Videos live under `Movies/AppCamera` | `RELATIVE_PATH` or physical folder |
+| BR-14 | Collision is avoided by monotonic time, not by counter | Two captures in the same millisecond are treated as improbable |
+
+### 🔐 Permission Denial Rules
+
+| # | Rule | Behaviour |
+|---|------|-----------|
+| BR-15 | Any denial produces a user-visible message | `Toast` — *Permissão negada* |
+| BR-16 | Denial aborts the capture attempt | No Intent is dispatched |
+| BR-17 | The user may retry simply by pressing the button again | The gate re-evaluates on every click |
+
+---
+
+</details>
+
+## ✅ Functional Requirements
+
+<details>
+<summary>▶️ <strong>Click to expand / collapse this section</strong></summary>
+
+| ID | Requirement | Priority | Status |
+|----|-------------|----------|--------|
+| **RF-01** | The system shall present a main screen with a photo button and a video button | 🔴 High | ✅ Implemented |
+| **RF-02** | The system shall request `CAMERA` permission at runtime before any capture | 🔴 High | ✅ Implemented |
+| **RF-03** | The system shall request `RECORD_AUDIO` permission before video recording | 🔴 High | ✅ Implemented |
+| **RF-04** | The system shall request `WRITE_EXTERNAL_STORAGE` on API levels below 29 | 🟡 Medium | ✅ Implemented |
+| **RF-05** | The system shall open the device camera application for still capture | 🔴 High | ✅ Implemented |
+| **RF-06** | The system shall open the device recorder application for video capture | 🔴 High | ✅ Implemented |
+| **RF-07** | The system shall persist photos to `Pictures/AppCamera` | 🔴 High | ✅ Implemented |
+| **RF-08** | The system shall persist videos to `Movies/AppCamera` | 🔴 High | ✅ Implemented |
+| **RF-09** | The system shall name each file with a millisecond timestamp | 🟡 Medium | ✅ Implemented |
+| **RF-10** | The system shall display the captured photo in-app immediately | 🔴 High | ✅ Implemented |
+| **RF-11** | The system shall auto-play the recorded video in-app immediately | 🔴 High | ✅ Implemented |
+| **RF-12** | The system shall hide the inactive preview view | 🟢 Low | ✅ Implemented |
+| **RF-13** | The system shall limit recordings to 60 seconds | 🟡 Medium | ✅ Implemented |
+| **RF-14** | The system shall request the high-quality video profile | 🟢 Low | ✅ Implemented |
+| **RF-15** | The system shall confirm each successful save with a toast | 🟢 Low | ✅ Implemented |
+| **RF-16** | The system shall notify the user when a permission is denied | 🟡 Medium | ✅ Implemented |
+| **RF-17** | The system shall ignore results whose code is not `RESULT_OK` | 🟡 Medium | ✅ Implemented |
+| **RF-18** | The system shall render edge-to-edge under the status and navigation bars | 🟢 Low | ✅ Implemented |
+| **RF-19** | The system shall follow the device light/dark appearance setting | 🟢 Low | ✅ Implemented |
+| **RF-20** | The system shall expose captured media to third-party gallery applications | 🔴 High | ✅ Implemented |
+
+---
+
+</details>
+
+## ⚡ Non-Functional Requirements
+
+<details>
+<summary>▶️ <strong>Click to expand / collapse this section</strong></summary>
+
+| ID | Category | Requirement | Target |
+|----|----------|-------------|--------|
+| **RNF-01** | ⚡ Performance | Cold start to interactive main screen | < 1.5 s on mid-range hardware |
+| **RNF-02** | ⚡ Performance | Button tap to camera app visible | < 800 ms |
+| **RNF-03** | 📦 Footprint | Installed APK size | < 5 MB (no minification) |
+| **RNF-04** | 🧠 Memory | Resident heap while previewing | < 60 MB |
+| **RNF-05** | 🔋 Battery | No background service, no wake lock | 0 background drain |
+| **RNF-06** | 📱 Compatibility | Android version range | API 24 → API 35 |
+| **RNF-07** | 📱 Compatibility | Screen support | Phone portrait, ConstraintLayout-responsive |
+| **RNF-08** | 🎨 Usability | Controls reachable with one hand | Buttons anchored to the lower half |
+| **RNF-09** | 🎨 Usability | Every action produces visible feedback | Toast on success and on denial |
+| **RNF-10** | ♿ Accessibility | All actionable views carry content descriptions | 100 % coverage target |
+| **RNF-11** | 🌍 Internationalization | UI strings externalized to `strings.xml` | Translation-ready |
+| **RNF-12** | 🔐 Privacy | No network permission declared | Media never leaves the device |
+| **RNF-13** | 🔐 Privacy | No analytics, no telemetry, no third-party SDK | Zero data collection |
+| **RNF-14** | 🧱 Maintainability | Single-file logic, no external architecture framework | < 200 lines of Java |
+| **RNF-15** | 🔧 Build | Reproducible builds via Gradle wrapper + version catalog | Pinned distribution |
+| **RNF-16** | 🧪 Testability | Unit and instrumented source sets present | JUnit 4 + Espresso |
+
+---
+
+</details>
+
+## 🗄️ Data Model
+
+<details>
+<summary>▶️ <strong>Click to expand / collapse this section</strong></summary>
+
+### Entity-Relationship Diagram
 
 ```mermaid
-classDiagram
-    class MainActivity {
-        -ImageView imageView
-        -VideoView videoView
-        -Uri photoUri
-        -Uri videoUri
-        +onCreate(Bundle)
-        -checkPermissionsAndOpen(boolean isPhoto)
-        -openCamera()
-        -openVideoRecorder()
-        +onRequestPermissionsResult(int, String[], int[])
-        +onActivityResult(int, int, Intent)
+erDiagram
+    ACTIVITY_STATE ||--o| PHOTO_URI : "holds"
+    ACTIVITY_STATE ||--o| VIDEO_URI : "holds"
+    PHOTO_URI ||--|| MEDIASTORE_IMAGE : "resolves to"
+    VIDEO_URI ||--|| MEDIASTORE_VIDEO : "resolves to"
+    MEDIASTORE_IMAGE }o--|| PICTURES_DIR : "stored in"
+    MEDIASTORE_VIDEO }o--|| MOVIES_DIR : "stored in"
+    PERMISSION_SET ||--o{ CAPTURE_REQUEST : "authorizes"
+    CAPTURE_REQUEST ||--o| MEDIASTORE_IMAGE : "produces"
+    CAPTURE_REQUEST ||--o| MEDIASTORE_VIDEO : "produces"
+
+    ACTIVITY_STATE {
+        Uri photoUri "nullable, last photo destination"
+        Uri videoUri "nullable, last video destination"
+        ImageView imageView "preview surface"
+        VideoView videoView "playback surface"
     }
-    class Intent {
-        +ACTION_IMAGE_CAPTURE
-        +ACTION_VIDEO_CAPTURE
-        +EXTRA_OUTPUT
+
+    PERMISSION_SET {
+        boolean CAMERA "required always"
+        boolean RECORD_AUDIO "required for video"
+        boolean WRITE_EXTERNAL_STORAGE "required below API 29"
     }
-    class MediaStore {
-        +Images.Media.EXTERNAL_CONTENT_URI
-        +Video.Media.EXTERNAL_CONTENT_URI
+
+    CAPTURE_REQUEST {
+        int requestCode "1 photo, 2 video"
+        string action "ACTION_IMAGE_CAPTURE | ACTION_VIDEO_CAPTURE"
+        Uri extraOutput "destination handed to camera"
+        int videoQuality "1 = high, video only"
+        int durationLimit "60 seconds, video only"
     }
-    MainActivity --> Intent : creates
-    MainActivity --> MediaStore : queries/inserts
+
+    MEDIASTORE_IMAGE {
+        string DISPLAY_NAME "epochMillis.jpg"
+        string MIME_TYPE "image/jpeg"
+        string RELATIVE_PATH "Pictures/AppCamera"
+        long dateAdded "insert timestamp"
+    }
+
+    MEDIASTORE_VIDEO {
+        string DISPLAY_NAME "epochMillis.mp4"
+        string MIME_TYPE "video/mp4"
+        string RELATIVE_PATH "Movies/AppCamera"
+        long duration "max 60000 ms"
+    }
+
+    PICTURES_DIR {
+        string path "Environment.DIRECTORY_PICTURES"
+        string subFolder "AppCamera"
+    }
+
+    MOVIES_DIR {
+        string path "Environment.DIRECTORY_MOVIES"
+        string subFolder "AppCamera"
+    }
 ```
 
-### 2.3 Object Diagram
+### MediaStore Record Specification
 
-```mermaid
-classDiagram
-    class mainActivity_1 {
-        photoUri = "content://media/external/images/media/1042"
-        videoUri = "content://media/external/video/media/null"
-        imageView.visibility = VISIBLE
-        videoView.visibility = GONE
-    }
-    note for mainActivity_1 "Runtime snapshot right after a successful photo capture (UC01)"
-```
+| Column | Photo value | Video value | Notes |
+|--------|-------------|-------------|-------|
+| `DISPLAY_NAME` | `<epochMillis>.jpg` | `<epochMillis>.mp4` | Set by AppCamera |
+| `MIME_TYPE` | `image/jpeg` | `video/mp4` | Set by AppCamera |
+| `RELATIVE_PATH` | `Pictures/AppCamera` | `Movies/AppCamera` | Set by AppCamera (API 29+) |
+| `_ID` | auto | auto | Assigned by MediaStore |
+| `DATE_ADDED` | auto | auto | Assigned by MediaStore |
+| `SIZE` | auto | auto | Written by the camera app |
+| `WIDTH` / `HEIGHT` | auto | auto | Extracted by the media scanner |
+| `DURATION` | — | auto | ≤ 60 000 ms |
+| `OWNER_PACKAGE_NAME` | `com.example.appcamera` | `com.example.appcamera` | Grants delete/update rights |
 
-### 2.4 Sequence Diagram — Take Photo
+### Legacy File Specification (API 24–28)
+
+| Property | Photo | Video |
+|----------|-------|-------|
+| Base directory | `getExternalStoragePublicDirectory(DIRECTORY_PICTURES)` | `getExternalStoragePublicDirectory(DIRECTORY_MOVIES)` |
+| Sub-directory | `AppCamera` (created with `mkdirs()`) | `AppCamera` (created with `mkdirs()`) |
+| Uri scheme | `file://` | `file://` |
+| Ownership | Filesystem-level, survives uninstall | Filesystem-level, survives uninstall |
+
+---
+
+</details>
+
+## 🔄 System Flows
+
+<details>
+<summary>▶️ <strong>Click to expand / collapse this section</strong></summary>
+
+### Photo Capture Flow
 
 ```mermaid
 sequenceDiagram
     autonumber
-    actor User
-    participant MainActivity
-    participant ContentResolver
-    participant NativeCamera as Native Camera App
+    participant U as 👤 User
+    participant A as 🏛️ MainActivity
+    participant P as 🔐 Permission Gate
+    participant R as 🗄️ ContentResolver
+    participant C as 📷 System Camera
+    participant V as 🖼️ ImageView
 
-    User->>MainActivity: tap "Take Photo"
-    MainActivity->>MainActivity: checkPermissionsAndOpen(true)
-    alt CAMERA not granted
-        MainActivity->>User: request CAMERA permission
-    else granted
-        MainActivity->>ContentResolver: insert(Images.Media.EXTERNAL_CONTENT_URI)
-        ContentResolver-->>MainActivity: photoUri
-        MainActivity->>NativeCamera: startActivityForResult(ACTION_IMAGE_CAPTURE, photoUri)
-        NativeCamera->>User: shows camera viewfinder
-        User->>NativeCamera: capture photo
-        NativeCamera-->>MainActivity: onActivityResult(RESULT_OK)
-        MainActivity->>MainActivity: imageView.setImageURI(photoUri)
-        MainActivity->>User: Toast "Photo saved!"
+    U->>A: Tap "Capture Photo"
+    A->>P: checkPermissionsAndOpen(true)
+    P->>P: CAMERA granted?
+    alt Not granted
+        P-->>U: requestPermissions(CAMERA)
+        U-->>P: Grant / Deny
+        P->>A: onRequestPermissionsResult
     end
-```
-
-### 2.5 Communication Diagram
-
-```mermaid
-flowchart LR
-    User((User)) <--> |"1: tap button / 6: views result"| MA[MainActivity]
-    MA <--> |"2: check/request / 3: granted"| OS[Android OS Permission System]
-    MA <--> |"4: insert URI / 5: result Uri"| MS[MediaStore]
-    MA <--> |"4: launch intent / 5: RESULT_OK + Uri"| CAM[Native Camera App]
-```
-
-### 2.6 Activity Diagram — `checkPermissionsAndOpen`
-
-```mermaid
-flowchart TD
-    Start([Start]) --> A{CAMERA granted?}
-    A -- No --> ReqCam[Request CAMERA permission]
-    ReqCam --> End1([Wait for result])
-    A -- Yes --> B{isPhoto?}
-    B -- No --> C{RECORD_AUDIO granted?}
-    C -- No --> ReqAudio[Request RECORD_AUDIO permission]
-    ReqAudio --> End1
-    C -- Yes --> D
-    B -- Yes --> D{SDK < Q and WRITE_EXTERNAL_STORAGE missing?}
-    D -- Yes --> ReqWrite[Request WRITE_EXTERNAL_STORAGE]
-    ReqWrite --> End1
-    D -- No --> E{isPhoto?}
-    E -- Yes --> F[openCamera]
-    E -- No --> G[openVideoRecorder]
-    F --> End2([End])
-    G --> End2
-```
-
-### 2.7 State Machine Diagram — Capture Session
-
-```mermaid
-stateDiagram-v2
-    [*] --> Idle
-    Idle --> RequestingPermission : user taps action button
-    RequestingPermission --> Idle : permission denied (Toast)
-    RequestingPermission --> LaunchingCamera : permission granted
-    LaunchingCamera --> WaitingResult : startActivityForResult
-    WaitingResult --> ShowingPhoto : RESULT_OK (photo)
-    WaitingResult --> ShowingVideo : RESULT_OK (video)
-    WaitingResult --> Idle : RESULT_CANCELED
-    ShowingPhoto --> Idle : ready for next action
-    ShowingVideo --> Idle : ready for next action
-```
-
-### 2.8 Component Diagram
-
-```mermaid
-flowchart TB
-    subgraph App["AppCamera (APK)"]
-        UI[UI Layer activity_main.xml]
-        MA[MainActivity.java]
+    P->>P: SDK < 29 && WRITE not granted?
+    alt Legacy write missing
+        P-->>U: requestPermissions(WRITE_EXTERNAL_STORAGE)
     end
-    MS[(MediaStore Content Provider)]
-    CAM[Native Camera App]
-
-    UI --> MA
-    MA -->|insert / query| MS
-    MA -->|Intent| CAM
-    CAM -->|Uri result| MA
+    P->>A: openCamera()
+    alt API 29+
+        A->>R: insert(Images.Media, ContentValues)
+        R-->>A: content:// photoUri
+    else API 24-28
+        A->>A: mkdirs() + Uri.fromFile(...)
+    end
+    A->>C: startActivityForResult(ACTION_IMAGE_CAPTURE, EXTRA_OUTPUT=photoUri)
+    C-->>U: Camera UI
+    U->>C: Shutter + confirm
+    C->>R: Write JPEG bytes to photoUri
+    C-->>A: onActivityResult(REQ_CAPTURE_PHOTO, RESULT_OK)
+    A->>V: videoView.GONE · imageView.VISIBLE · setImageURI(photoUri)
+    A-->>U: Toast "Foto salva!"
 ```
 
-### 2.9 Deployment Diagram
-
-```mermaid
-flowchart TB
-    subgraph Device["📱 Android Device (API 24-35)"]
-        APK["AppCamera.apk (MainActivity)"]
-        MSProvider["MediaStore Provider"]
-        CameraApp["Native Camera App"]
-        Storage[("Internal Storage Pictures/AppCamera Movies/AppCamera")]
-    end
-    APK --> MSProvider
-    APK --> CameraApp
-    MSProvider --> Storage
-    CameraApp --> Storage
-```
-
-### 2.10 Package Diagram
-
-```mermaid
-flowchart TB
-    subgraph com.example.appcamera
-        MainActivity
-    end
-    subgraph androidx
-        appcompat
-        cardview
-        activity
-        constraintlayout
-    end
-    subgraph android
-        content
-        provider
-        widget
-    end
-    MainActivity --> appcompat
-    MainActivity --> cardview
-    MainActivity --> content
-    MainActivity --> provider
-    MainActivity --> widget
-```
-
-### 2.11 Composite Structure Diagram — MainActivity
-
-```mermaid
-flowchart TB
-    subgraph MainActivity
-        direction TB
-        TV[tvTitle: TextView]
-        subgraph cardPreview [CardView]
-            IV[imageView: ImageView]
-            VV[videoView: VideoView]
-        end
-        BtnPhoto[btnCapturePhoto: MaterialButton]
-        BtnVideo[btnRecordVideo: MaterialButton]
-    end
-    BtnPhoto -.click.-> MainActivity
-    BtnVideo -.click.-> MainActivity
-```
-
-### 2.12 Interaction Overview Diagram
-
-```mermaid
-flowchart LR
-    StartUI[Main Screen Interaction] --> Decision{Action chosen?}
-    Decision -- Photo --> SeqPhoto[["Sequence: Take Photo (see 2.4)"]]
-    Decision -- Video --> SeqVideo[["Sequence: Record Video (analogous to 2.4)"]]
-    SeqPhoto --> ShowResult[Show result on Main Screen]
-    SeqVideo --> ShowResult
-```
-
-### 2.13 Timing Diagram — Permission Request
+### Video Capture Flow
 
 ```mermaid
 sequenceDiagram
-    participant U as User
-    participant A as MainActivity
-    participant S as Android System
+    autonumber
+    participant U as 👤 User
+    participant A as 🏛️ MainActivity
+    participant P as 🔐 Permission Gate
+    participant R as 🗄️ ContentResolver
+    participant C as 🎥 System Recorder
+    participant V as ▶️ VideoView
 
-    Note over U,S: t = 0ms - user taps action button
-    U->>A: onClick()
-    A->>S: requestPermissions([CAMERA])
-    Note over S: System permission dialog shown (~t+100ms)
-    S->>U: show dialog
-    U->>S: respond grant/deny (~t+1500ms, user-dependent)
-    S->>A: onRequestPermissionsResult()
-    Note over A: t+1500ms - camera launched or Toast shown
-```
-
-</details>
-
----
-
-## 3. Data Modeling
-
-<details>
-<summary>▶️ <strong>Click to expand / collapse this section</strong></summary>
-
-> AppCamera has no private database. The "data model" below describes the **MediaStore** records the app creates/reads, modeled as if they were entities for documentation completeness.
-
-### 3.1 Entity-Relationship Diagram (DER)
-
-```mermaid
-erDiagram
-    APP_USER ||--o{ PHOTO : captures
-    APP_USER ||--o{ VIDEO : captures
-
-    PHOTO {
-        string uri PK "content URI"
-        string display_name "timestamp.jpg"
-        string mime_type "image/jpeg"
-        string relative_path "Pictures/AppCamera"
-        datetime created_at
-    }
-    VIDEO {
-        string uri PK "content URI"
-        string display_name "timestamp.mp4"
-        string mime_type "video/mp4"
-        string relative_path "Movies/AppCamera"
-        int duration_limit_seconds "60"
-        datetime created_at
-    }
-```
-
-### 3.2 Conceptual Data Model
-
-- A **User** captures **Media**, specialized as **Photo** or **Video**.
-- Each **Media** item belongs to an **Album folder** (`AppCamera`) within the device's shared media collection.
-
-### 3.3 Logical Data Model
-
-| Entity | Attribute | Type | Notes |
-|--------|-----------|------|-------|
-| Photo | uri | URI | Primary identifier, generated by `MediaStore.insert` |
-| Photo | display_name | String | `<timestamp>.jpg` |
-| Photo | mime_type | String | `image/jpeg` |
-| Photo | relative_path | String | `Pictures/AppCamera` |
-| Video | uri | URI | Primary identifier, generated by `MediaStore.insert` |
-| Video | display_name | String | `<timestamp>.mp4` |
-| Video | mime_type | String | `video/mp4` |
-| Video | relative_path | String | `Movies/AppCamera` |
-| Video | duration_limit | Integer | 60 (seconds), passed as Intent extra, not persisted |
-
-### 3.4 Physical Data Model
-
-On Android Q+ these map to rows in the system `MediaProvider` SQLite database (outside the app's control), accessible via:
-
-```
-content://media/external/images/media   (table: images)
-content://media/external/video/media     (table: video)
-```
-
-Relevant physical columns used by the app: `DISPLAY_NAME`, `MIME_TYPE`, `RELATIVE_PATH`. On Android < 10, files are written directly to `Environment.DIRECTORY_PICTURES/AppCamera` and `DIRECTORY_MOVIES/AppCamera` on the public external storage filesystem.
-
-### 3.5 Data Dictionary
-
-| Field | Source | Type | Format/Domain | Description |
-|-------|--------|------|----------------|-------------|
-| `photoUri` | `ContentResolver.insert` | `Uri` | `content://...` | Output location for the captured photo |
-| `videoUri` | `ContentResolver.insert` | `Uri` | `content://...` | Output location for the captured video |
-| `DISPLAY_NAME` | `MediaStore` column | String | `<epoch_ms>.jpg` / `.mp4` | File name shown in galleries |
-| `MIME_TYPE` | `MediaStore` column | String | `image/jpeg`, `video/mp4` | Media type |
-| `RELATIVE_PATH` | `MediaStore` column | String | `Pictures/AppCamera`, `Movies/AppCamera` | Storage sub-folder |
-| `EXTRA_VIDEO_QUALITY` | Intent extra | Int | `1` (high) | Requested recording quality |
-| `EXTRA_DURATION_LIMIT` | Intent extra | Int | `60` | Max recording length in seconds |
-
-### 3.6 Data Flow Diagram (DFD)
-
-```mermaid
-flowchart LR
-    U([User]) -->|tap button| MA[MainActivity]
-    MA -->|1. insert metadata| MS[(MediaStore)]
-    MS -->|2. return Uri| MA
-    MA -->|3. Intent + Uri| CAM[Native Camera]
-    CAM -->|4. write bytes| FS[(Device Storage)]
-    CAM -->|5. RESULT_OK + Uri| MA
-    MA -->|6. read Uri| FS
-    MA -->|7. render| UI([ImageView/VideoView])
-```
-
-### 3.7 Data Lineage Diagram
-
-```mermaid
-flowchart LR
-    Sensor["Camera Sensor / Microphone"] --> NativeApp["Native Camera App (encodes JPEG/MP4)"]
-    NativeApp --> Storage["Device Storage (Pictures|Movies/AppCamera)"]
-    Storage --> MediaProvider["MediaProvider DB (MediaStore index)"]
-    MediaProvider --> AppCamera["AppCamera (reads via Uri)"]
-    AppCamera --> Display["ImageView / VideoView (on-screen display)"]
-```
-
-</details>
-
----
-
-## 4. Architecture
-
-<details>
-<summary>▶️ <strong>Click to expand / collapse this section</strong></summary>
-
-### 4.1 Architecture Overview
-
-```mermaid
-flowchart TB
-    subgraph Presentation["🖥️ Presentation"]
-        Layout[activity_main.xml]
-        Activity[MainActivity.java]
+    U->>A: Tap "Record Video"
+    A->>P: checkPermissionsAndOpen(false)
+    P->>P: CAMERA granted?
+    P->>P: RECORD_AUDIO granted?
+    alt Audio missing
+        P-->>U: requestPermissions(RECORD_AUDIO)
+        U-->>P: Grant / Deny
     end
-    subgraph Platform["🤖 Android Platform APIs"]
-        Perm[Permission System]
-        MediaStoreAPI[MediaStore / ContentResolver]
-        CameraIntent[Camera Intents]
+    P->>A: openVideoRecorder()
+    alt API 29+
+        A->>R: insert(Video.Media, ContentValues)
+        R-->>A: content:// videoUri
+    else API 24-28
+        A->>A: mkdirs() + Uri.fromFile(...)
     end
-    subgraph External["📱 External Apps"]
-        NativeCamera[Native Camera App]
-    end
-
-    Layout --> Activity
-    Activity --> Perm
-    Activity --> MediaStoreAPI
-    Activity --> CameraIntent
-    CameraIntent --> NativeCamera
-    NativeCamera --> MediaStoreAPI
+    A->>C: ACTION_VIDEO_CAPTURE + EXTRA_OUTPUT + QUALITY=1 + LIMIT=60s
+    C-->>U: Recorder UI
+    U->>C: Record (auto-stop at 60 s)
+    C->>R: Write MP4 stream to videoUri
+    C-->>A: onActivityResult(REQ_CAPTURE_VIDEO, RESULT_OK)
+    A->>V: imageView.GONE · videoView.VISIBLE · setVideoURI + start()
+    A-->>U: Toast "Vídeo salvo!"
 ```
 
-### 4.2 C4 Model
-
-#### Level 1 — Context
-
-```mermaid
-flowchart TB
-    user(["📱 App User"])
-    appcamera["AppCamera [Software System]"]
-    androidos["Android OS [Software System] - Permissions, MediaStore, Camera Intents"]
-
-    user -->|uses| appcamera
-    appcamera -->|delegates capture to| androidos
-```
-
-#### Level 2 — Containers
-
-```mermaid
-flowchart TB
-    subgraph appcamera["AppCamera [Software System]"]
-        ui["UI Container - XML Layouts - activity_main.xml"]
-        logic["Application Container - MainActivity.java (Java, Android SDK)"]
-    end
-    os["Android OS - MediaStore, Camera, Permissions"]
-
-    ui --> logic
-    logic -->|Intents / ContentResolver| os
-```
-
-#### Level 3 — Components (MainActivity)
-
-```mermaid
-flowchart TB
-    subgraph MainActivity
-        PermComp["Permission Checker - checkPermissionsAndOpen()"]
-        PhotoComp["Photo Capture - openCamera()"]
-        VideoComp["Video Capture - openVideoRecorder()"]
-        ResultComp["Result Handler - onActivityResult()"]
-    end
-    PermComp --> PhotoComp
-    PermComp --> VideoComp
-    PhotoComp --> ResultComp
-    VideoComp --> ResultComp
-```
-
-#### Level 4 — Code (key method)
-
-```mermaid
-classDiagram
-    class MainActivity {
-        -openVideoRecorder() void
-    }
-    note for MainActivity "openVideoRecorder(): 1. Build ContentValues (name, mime, path) 2. resolver.insert(Video.Media.EXTERNAL_CONTENT_URI, vals) 3. new Intent(ACTION_VIDEO_CAPTURE) 4. putExtra(EXTRA_OUTPUT, videoUri) 5. putExtra(EXTRA_VIDEO_QUALITY, 1) 6. putExtra(EXTRA_DURATION_LIMIT, 60) 7. startActivityForResult(intent, REQ_CAPTURE_VIDEO)"
-```
-
-### 4.3 Layered Architecture Diagram
-
-```mermaid
-flowchart TB
-    L1["Presentation Layer - XML Layouts, Views"] --> L2["Application Layer - MainActivity (event handling)"]
-    L2 --> L3["Platform Integration Layer - Intents, Permissions, ContentResolver"]
-    L3 --> L4["OS / Hardware Layer - Camera, Microphone, Storage"]
-```
-
-### 4.4 Microservices Diagram
-
-> **Not applicable.** AppCamera is a single offline mobile application with no backend services — there is no microservices topology. This section is documented for completeness across the author's portfolio.
-
-```mermaid
-flowchart LR
-    Monolith["AppCamera (single Android module, no services)"]
-```
-
-### 4.5 Infrastructure / Network Diagram
-
-```mermaid
-flowchart LR
-    subgraph Device["Android Device"]
-        AppCamera
-        OSServices["OS Services (MediaStore, Camera HAL)"]
-    end
-    AppCamera <--> OSServices
-```
-
-> No network connectivity is required by the application.
-
-### 4.6 Cloud Deployment Diagram
-
-> **Not applicable for runtime** (fully offline app). Distribution-only diagram:
-
-```mermaid
-flowchart LR
-    Dev["Developer Machine (Android Studio)"] -->|build .apk/.aab| Store["Google Play Console (or direct APK distribution)"]
-    Store -->|install| Device["End-user Android Device"]
-```
-
-### 4.7 Architecture Decision Records (ADR)
-
-#### ADR-001: Use Camera Intents (MediaStore) instead of CameraX/Camera2
-
-- **Status:** Accepted
-- **Context:** The app needs to take photos and record videos with minimal complexity.
-- **Decision:** Use `ACTION_IMAGE_CAPTURE` / `ACTION_VIDEO_CAPTURE` Intents delegating to the device's native camera app, with output redirected via `MediaStore`.
-- **Consequences:** ✅ Much less code, no preview/lifecycle management, automatic compatibility across devices. ❌ Less control over capture UI/UX, no live preview inside the app, no custom filters.
-
-#### ADR-002: Scoped Storage via MediaStore for Android Q+
-
-- **Status:** Accepted
-- **Context:** Android 10 (API 29) introduced Scoped Storage, restricting direct file path access.
-- **Decision:** Use `ContentResolver.insert()` with `MediaStore.Images/Video.Media.EXTERNAL_CONTENT_URI` on API ≥ 29, falling back to `Environment.getExternalStoragePublicDirectory` on older versions.
-- **Consequences:** ✅ Forward-compatible storage strategy. ❌ Two code paths (version-gated `if`) increase branching complexity.
-
-### 4.8 System Integration Diagram
-
-```mermaid
-flowchart LR
-    AppCamera -->|Intent ACTION_IMAGE_CAPTURE / ACTION_VIDEO_CAPTURE| AndroidCameraSubsystem["Android Camera Subsystem"]
-    AppCamera -->|ContentResolver.insert/query| MediaStoreSystem["MediaStore System Service"]
-    AppCamera -->|requestPermissions| PermissionSystem["Android Permission System"]
-```
-
-### 4.9 Event-Driven Flow Diagram
-
-```mermaid
-flowchart TB
-    E1["Event: onClick (Take Photo)"] --> H1["Handler: checkPermissionsAndOpen(true)"]
-    H1 --> E2["Event: onRequestPermissionsResult"]
-    E2 --> H2["Handler: openCamera()"]
-    H2 --> E3["Event: onActivityResult (REQ_CAPTURE_PHOTO)"]
-    E3 --> H3["Handler: update ImageView + Toast"]
-```
-
-### 4.10 CI/CD Pipeline Diagram
-
-> Suggested pipeline (not currently configured in the repository):
-
-```mermaid
-flowchart LR
-    A[Push to main/feature branch] --> B[CI: Gradle build]
-    B --> C[CI: Unit tests - app/src/test]
-    C --> D[CI: Lint / Static analysis]
-    D --> E[CI: Assemble debug APK]
-    E --> F[Manual: Install on device/emulator]
-    F --> G[Release: Assemble signed AAB]
-    G --> H[Publish to Play Console - Internal Testing]
-```
-
-</details>
-
----
-
-## 5. Business Processes
-
-<details>
-<summary>▶️ <strong>Click to expand / collapse this section</strong></summary>
-
-### 5.1 BPMN — Capture Process
-
-```mermaid
-flowchart LR
-    Start(("Start")) --> T1[/User selects capture type/]
-    T1 --> G1{Permissions OK?}
-    G1 -- No --> T2[Request permissions]
-    T2 --> G1
-    G1 -- Yes --> T3[Launch native camera]
-    T3 --> T4[User captures media]
-    T4 --> T5[App displays result]
-    T5 --> End(("End"))
-```
-
-### 5.2 Flowchart — Overall App Flow
+### Permission Request Flow
 
 ```mermaid
 flowchart TD
-    Open[Open AppCamera] --> Choose{Choose action}
-    Choose -->|Take Photo| Photo[Photo capture flow]
-    Choose -->|Record Video| Video[Video capture flow]
-    Photo --> Preview[Show preview]
-    Video --> Preview
-    Preview --> Choose
+    START([Button pressed]) --> CAM{CAMERA<br/>granted?}
+    CAM -- No --> REQCAM[requestPermissions CAMERA<br/>code = REQ_CAM]
+    REQCAM --> CB{onRequestPermissionsResult<br/>granted?}
+    CB -- No --> TOAST[Toast: Permissão negada]
+    TOAST --> END([Abort])
+    CB -- Yes --> OPEN
+    CAM -- Yes --> ISPHOTO{isPhoto?}
+    ISPHOTO -- No --> AUD{RECORD_AUDIO<br/>granted?}
+    AUD -- No --> REQAUD[requestPermissions RECORD_AUDIO<br/>code = REQ_CAM]
+    REQAUD --> CB
+    AUD -- Yes --> SDK
+    ISPHOTO -- Yes --> SDK{SDK_INT < 29?}
+    SDK -- No --> BRANCH
+    SDK -- Yes --> WRT{WRITE_EXTERNAL<br/>granted?}
+    WRT -- No --> REQWRT[requestPermissions WRITE<br/>code = REQ_WRITE]
+    REQWRT --> CB
+    WRT -- Yes --> BRANCH
+    BRANCH{isPhoto?} -- Yes --> OPEN[openCamera]
+    BRANCH -- No --> OPENV[openVideoRecorder]
+    OPEN --> DONE([Intent dispatched])
+    OPENV --> DONE
+
+    style START fill:#1565C0,color:#fff
+    style DONE fill:#2E7D32,color:#fff
+    style END fill:#B71C1C,color:#fff
+    style TOAST fill:#BF360C,color:#fff
 ```
 
-### 5.3 As-Is Process Map (Before AppCamera)
+### Storage Strategy Selection Flow
 
 ```mermaid
 flowchart LR
-    A[User wants a quick photo/video] --> B[Open OS default Camera app]
-    B --> C[Switch between photo/video mode manually]
-    C --> D[Capture media]
-    D --> E[Open Gallery app separately to review]
+    IN([Capture requested]) --> Q{Build.VERSION.SDK_INT<br/>>= Q (29)?}
+    Q -- Yes --> CV[Build ContentValues<br/>DISPLAY_NAME · MIME_TYPE · RELATIVE_PATH]
+    CV --> INS[contentResolver.insert]
+    INS --> URI1[content:// Uri]
+    Q -- No --> DIR[getExternalStoragePublicDirectory]
+    DIR --> MK{Folder exists?}
+    MK -- No --> MKD[mkdirs]
+    MKD --> FL
+    MK -- Yes --> FL[new File dir, epochMillis.ext]
+    FL --> URI2[file:// Uri]
+    URI1 --> OUT([EXTRA_OUTPUT])
+    URI2 --> OUT
+
+    style IN fill:#1565C0,color:#fff
+    style OUT fill:#2E7D32,color:#fff
 ```
 
-### 5.4 To-Be Process Map (With AppCamera)
+### Preview State Machine
 
 ```mermaid
-flowchart LR
-    A[User wants a quick photo/video] --> B[Open AppCamera]
-    B --> C[Tap dedicated Photo or Video button]
-    C --> D[Native camera opens pre-configured - video: 60s/high quality]
-    D --> E[Result auto-displayed inside AppCamera]
+stateDiagram-v2
+    [*] --> Empty: onCreate
+    Empty --> PhotoShown: RESULT_OK (REQ_CAPTURE_PHOTO)
+    Empty --> VideoPlaying: RESULT_OK (REQ_CAPTURE_VIDEO)
+    PhotoShown --> VideoPlaying: video captured
+    VideoPlaying --> PhotoShown: photo captured
+    PhotoShown --> PhotoShown: another photo
+    VideoPlaying --> VideoPlaying: another video
+    Empty --> Empty: capture cancelled
+    PhotoShown --> PhotoShown: capture cancelled
+    VideoPlaying --> VideoPlaying: capture cancelled
 ```
-
-### 5.5 SIPOC
-
-| Suppliers | Inputs | Process | Outputs | Customers |
-|-----------|--------|---------|---------|-----------|
-| Android OS, Camera Hardware | User tap, runtime permissions | Capture Photo/Video via Intent | Photo (.jpg) / Video (.mp4) file + on-screen preview | App User |
-
-</details>
 
 ---
 
-## 6. UX/UI & Prototypes
+</details>
+
+## 🔐 Security
 
 <details>
 <summary>▶️ <strong>Click to expand / collapse this section</strong></summary>
 
-### 6.1 Persona
+### Implemented Controls
 
-| Attribute | Value |
-|-----------|-------|
-| **Name** | Marcos, 24 |
-| **Role** | Computer Science student / junior Android developer |
-| **Goal** | Quickly capture a photo or short video to test/demo an app feature |
-| **Frustration** | Heavyweight camera libraries with steep learning curves for simple capture needs |
-| **How AppCamera helps** | Provides a copy-paste-ready, minimal Intent-based capture flow |
+| Control | Implementation | Effect |
+|---------|---------------|--------|
+| 🔐 **Runtime permission model** | `ContextCompat.checkSelfPermission` + `ActivityCompat.requestPermissions` | Camera and microphone are never accessed without explicit consent |
+| 🚦 **Fail-closed gate** | Every guard returns before Intent dispatch | A missing permission aborts the operation rather than degrading it |
+| 🗄️ **Scoped storage** | MediaStore inserts on API 29+ | The app never holds broad filesystem access on modern Android |
+| 🏷️ **Owned records** | `OWNER_PACKAGE_NAME` set implicitly on insert | Only AppCamera may modify or delete its own MediaStore rows without extra consent |
+| 🌐 **No network permission** | `INTERNET` absent from the manifest | Captured media is physically incapable of leaving the device via this app |
+| 📵 **No third-party SDK** | Dependency set limited to AndroidX + Material | No analytics, ad, or crash-reporting data egress |
+| 🧾 **Backup policy declared** | `backup_rules.xml`, `data_extraction_rules.xml` | Explicit control over what Auto Backup and device transfer may copy |
+| ✅ **Result validation** | `if (res != RESULT_OK) return;` | Malformed or cancelled results cannot drive UI state |
+| 🔒 **Delegated capture** | System camera owns the sensor session | AppCamera never holds an open camera handle it could leak |
 
-### 6.2 User Journey Map
+### Known Security Limitations
 
-```mermaid
-journey
-    title Take a Photo with AppCamera
-    section Discover
-      Open app: 5: User
-    section Act
-      Tap Take Photo: 5: User
-      Grant Camera permission: 3: User
-    section Capture
-      Native camera opens: 5: User
-      Take the photo: 5: User
-    section Review
-      Return to AppCamera: 5: User
-      See photo preview and toast: 5: User
-```
+> [!WARNING]
+> The following are inherent to the current design and should be understood before reuse in a production context.
 
-### 6.3 Wireframe (ASCII)
-
-```
-┌──────────────────────────────┐
-│           AppCamera           │
-├──────────────────────────────┤
-│                                │
-│      [ Image / Video      ]   │
-│      [    Preview Area    ]   │
-│                                │
-├──────────────────────────────┤
-│   📸  Take Photo               │
-├──────────────────────────────┤
-│   📹  Record Video             │
-└──────────────────────────────┘
-```
-
-### 6.4 Mockup
-
-> High-fidelity mockup reference: gradient background (`bg_gradient.xml`), rounded `CardView` preview (16dp radius, 8dp elevation), Material buttons with leading icons (`ic_camera`, `ic_videocam`) and 24dp corner radius, per `activity_main.xml`.
-
-### 6.5 Navigable Prototype
-
-> Not published as an external prototype file. The running app itself **is** the high-fidelity, navigable prototype — build and run via [How to Run](#-how-to-run) to navigate the real (single-screen) flow.
-
-### 6.6 Screen Flow / Navigation Map
-
-```mermaid
-flowchart LR
-    Main["Main Screen (MainActivity)"] -->|Take Photo| NativeCam1["OS Camera (Photo)"]
-    Main -->|Record Video| NativeCam2["OS Camera (Video)"]
-    NativeCam1 -->|result| Main
-    NativeCam2 -->|result| Main
-```
-
-### 6.7 Design System / Style Guide
-
-| Token | Value | Usage |
-|-------|-------|-------|
-| Background | `bg_gradient.xml` (gradient drawable) | Root layout background |
-| Primary text color | `@color/textPrimary` | Title text |
-| Accent color | `@color/buttonAccent` | Button background tint |
-| Corner radius (buttons) | `24dp` | `MaterialButton` `app:cornerRadius` |
-| Corner radius (preview card) | `16dp` | `CardView` `app:cardCornerRadius` |
-| Elevation (preview card) | `8dp` | `CardView` `app:cardElevation` |
-| Iconography | `ic_camera.xml`, `ic_videocam.xml` | Button leading icons |
-| Typography | 24sp bold (title), 16sp (buttons) | `tvTitle`, `MaterialButton` |
-
-### 6.8 Card Sorting
-
-> With a single screen and two primary actions, a formal card-sorting exercise is not applicable. The two actions ("Take Photo" / "Record Video") were grouped as **siblings under a single "Capture" category**, both equally prominent, which is the natural outcome a card-sorting session would produce for this scope.
-
-### 6.9 Empathy Map
-
-| Quadrant | Content |
-|----------|---------|
-| **Says** | "I just want to quickly snap a photo to test this." |
-| **Thinks** | "Will this app ask for a million permissions?" |
-| **Does** | Taps the button, grants the permission dialog, captures media. |
-| **Feels** | Reassured when the preview appears immediately and only relevant permissions are requested. |
-
-### 6.10 Product Roadmap
-
-```mermaid
-gantt
-    title AppCamera Roadmap
-    dateFormat YYYY-MM-DD
-    section v1.0 (Current)
-    Photo capture (Intent)       :done, 2024-01-01, 30d
-    Video capture (Intent)       :done, 2024-01-15, 30d
-    Permission handling          :done, 2024-01-15, 30d
-    section v1.1 (Planned)
-    In-app media gallery         :2026-07-01, 30d
-    Share captured media         :2026-07-15, 20d
-    section v1.2 (Backlog)
-    Camera switch front/back      :2026-09-01, 30d
-    Dark mode                    :2026-09-15, 15d
-```
-
-</details>
+| Limitation | Risk | Mitigation path |
+|------------|------|-----------------|
+| 🗂️ **Media stored in public collections** | Any app with media read permission can read the captured files | Write to `getExternalFilesDir()` or app-private storage if confidentiality is required |
+| 🔓 **No encryption at rest** | Files are plain JPEG/MP4 on shared storage | Encrypt with Jetpack Security (`EncryptedFile`) before persisting |
+| 🧭 **`file://` Uri on API < 29** | Legacy scheme; `FileUriExposedException` risk if shared to another app | Adopt `FileProvider` for cross-app sharing on legacy devices |
+| 🔁 **Permanent denial not detected** | "Don't ask again" produces the same toast as a normal denial | Call `shouldShowRequestPermissionRationale` and deep-link to app settings |
+| 🕳️ **No `resolveActivity` guard** | A device with no camera app would throw `ActivityNotFoundException` | Check `intent.resolveActivity(packageManager) != null` before dispatch |
+| 🧹 **Orphan MediaStore rows** | A cancelled capture leaves an empty inserted row on API 29+ | Delete the pending `Uri` when `res != RESULT_OK` |
+| 🔏 **No `IS_PENDING` flag** | Other apps can observe the row while it is still being written | Set `MediaStore.MediaColumns.IS_PENDING = 1` during write, clear it afterwards |
+| 🧬 **Release build unminified** | `isMinifyEnabled = false` ships readable bytecode | Enable R8 with the existing `proguard-rules.pro` |
 
 ---
 
-## 7. Technical Documentation
+</details>
+
+## 🚀 Installation & Execution
 
 <details>
 <summary>▶️ <strong>Click to expand / collapse this section</strong></summary>
 
-### 7.1 API Documentation
+### Prerequisites
 
-> AppCamera exposes **no network/REST API**. The relevant "API surface" is the **Android Intent contract** it consumes:
+```bash
+# Java Development Kit 11 or newer
+java -version        # expect 11+
 
-| Intent Action | Required Extras | Returns |
-|---------------|------------------|---------|
-| `MediaStore.ACTION_IMAGE_CAPTURE` | `EXTRA_OUTPUT` (Uri) | `RESULT_OK` + photo written to `EXTRA_OUTPUT` |
-| `MediaStore.ACTION_VIDEO_CAPTURE` | `EXTRA_OUTPUT` (Uri), `EXTRA_VIDEO_QUALITY`, `EXTRA_DURATION_LIMIT` | `RESULT_OK` + video written to `EXTRA_OUTPUT` |
+# Android SDK Platform 35 + Build-Tools
+# Install via Android Studio > SDK Manager, or sdkmanager CLI:
+sdkmanager "platforms;android-35" "build-tools;35.0.0" "platform-tools"
 
-### 7.2 User Manual
-
-1. Open the **AppCamera** app.
-2. Tap **📸 Take Photo** to capture a picture, or **📹 Record Video** to record a clip (max 60s).
-3. Grant the requested permissions on first use (Camera, and Audio for video).
-4. Use the device's native camera UI to capture and confirm.
-5. Return automatically to AppCamera to view the result in the preview area.
-
-### 7.3 Technical / Operational Manual
-
-| Topic | Detail |
-|-------|--------|
-| Build tool | Gradle (Kotlin DSL), via `gradlew` / `gradlew.bat` |
-| Min/Target/Compile SDK | 24 / 35 / 35 |
-| Java version | 11 |
-| Key dependencies | `appcompat`, `material`, `activity`, `constraintlayout` |
-| Required runtime permissions | `CAMERA`, `RECORD_AUDIO`, `WRITE_EXTERNAL_STORAGE` (≤ API 28) |
-| Common issue: camera does not open | Verify CAMERA permission was granted in system settings. |
-| Common issue: video not playing | Verify the emulator's virtual camera produced a valid `.mp4` (some AVDs require webcam passthrough enabled). |
-
-### 7.4 Changelog
-
-```markdown
-## [1.0.0] - Initial Release
-### Added
-- Take Photo via ACTION_IMAGE_CAPTURE with MediaStore output.
-- Record Video via ACTION_VIDEO_CAPTURE (60s limit, high quality).
-- Runtime permission handling for CAMERA, RECORD_AUDIO, WRITE_EXTERNAL_STORAGE.
-- Auto preview of captured photo/video in ImageView/VideoView.
-- Custom gradient UI with vector icons.
+# A physical device (recommended — emulators have limited camera support)
+# with USB debugging enabled, or an emulator with a virtual camera configured.
+adb devices          # confirm the device is listed
 ```
 
-### 7.5 Installation / Deploy Guide
+Create `local.properties` in the project root if Android Studio has not already:
 
-See [How to Run](#-how-to-run) — clone, open in Android Studio, sync Gradle, run on device/emulator, grant permissions.
+```properties
+sdk.dir=/absolute/path/to/Android/Sdk
+```
 
-### 7.6 Runbook / Operations Playbook
+### Build
 
-| Symptom | Likely Cause | Action |
-|---------|--------------|--------|
-| App crashes on launch | Missing dependency / Gradle sync failure | Re-run `Build → Sync Project with Gradle Files`; check `libs.versions.toml` |
-| "Permission denied" toast on every attempt | User permanently denied a permission ("Don't ask again") | Manually enable Camera/Microphone permission in Android system Settings → Apps → AppCamera |
-| Camera opens but result is blank | Emulator without configured virtual camera | Enable webcam/virtual camera in AVD `Extended Controls → Camera` |
-| Video does not autoplay | `VideoView` codec issue on emulator | Test on a physical device, or use an AVD image with Google Play services |
+```bash
+# Assemble the debug APK
+./gradlew assembleDebug
+# Output: app/build/outputs/apk/debug/app-debug.apk
 
-### 7.7 Coding Standards
+# Assemble the release APK (unsigned by default)
+./gradlew assembleRelease
 
-- Java naming conventions: `PascalCase` for classes (`MainActivity`), `camelCase` for methods/fields.
-- Request codes defined as named `private static final int` constants (`REQ_CAM`, `REQ_CAPTURE_PHOTO`, etc.).
-- One `Activity` per screen; UI defined declaratively in XML layouts, not built programmatically.
-- Permission checks centralized in a single method (`checkPermissionsAndOpen`) to avoid duplication.
+# Clean all build artifacts
+./gradlew clean
 
-### 7.8 Database Documentation
+# Full verification: compile + lint + unit tests
+./gradlew build
+```
 
-> No application-managed database. All persisted state lives in the OS-managed **MediaStore** (`MediaProvider`), accessed exclusively through `ContentResolver`. See [3. Data Modeling](#3-data-modeling) for the relevant schema fields.
+### Execution
 
-</details>
+```bash
+# Build and install onto the connected device in one step
+./gradlew installDebug
+
+# Launch the main activity
+adb shell am start -n com.example.appcamera/.MainActivity
+
+# Or simply press ▶ Run in Android Studio.
+```
+
+**In-app usage**
+
+1. Launch **AppCamera**.
+2. Press **Capture Photo** → grant `CAMERA` if prompted → the system camera opens.
+3. Take the shot and confirm → the photo appears in the in-app preview card.
+4. Press **Record Video** → grant `RECORD_AUDIO` if prompted → the recorder opens.
+5. Record (auto-stops at 60 s) and confirm → the video plays back in the card.
+6. Open the device gallery and inspect `Pictures/AppCamera` and `Movies/AppCamera`.
+
+### Gradle Targets
+
+| Target | Purpose |
+|--------|---------|
+| `./gradlew tasks` | List every available task |
+| `./gradlew assembleDebug` | Build the debug APK |
+| `./gradlew assembleRelease` | Build the release APK |
+| `./gradlew installDebug` | Build + install on the connected device |
+| `./gradlew uninstallDebug` | Remove the debug build from the device |
+| `./gradlew test` | Run JVM-local unit tests |
+| `./gradlew connectedAndroidTest` | Run instrumented tests on a device |
+| `./gradlew lint` | Run Android Lint static analysis |
+| `./gradlew clean` | Delete `build/` directories |
+
+### Build Configuration
+
+| Setting | Value | Declared in |
+|---------|-------|-------------|
+| `namespace` | `com.example.appcamera` | `app/build.gradle.kts` |
+| `applicationId` | `com.example.appcamera` | `app/build.gradle.kts` |
+| `compileSdk` | `35` | `app/build.gradle.kts` |
+| `minSdk` | `24` | `app/build.gradle.kts` |
+| `targetSdk` | `35` | `app/build.gradle.kts` |
+| `versionCode` / `versionName` | `1` / `1.0` | `app/build.gradle.kts` |
+| `sourceCompatibility` | `JavaVersion.VERSION_11` | `compileOptions` |
+| `isMinifyEnabled` (release) | `false` | `buildTypes.release` |
+| `testInstrumentationRunner` | `androidx.test.runner.AndroidJUnitRunner` | `defaultConfig` |
 
 ---
 
-## 8. Project Management
+</details>
+
+## 🧪 Automated Tests
 
 <details>
 <summary>▶️ <strong>Click to expand / collapse this section</strong></summary>
 
-### 8.1 Project Charter
-
-| Item | Description |
-|------|-------------|
-| Project Name | AppCamera |
-| Sponsor | Self-directed learning project (portfolio) |
-| Project Manager / Developer | Victor H. J. Santiago |
-| Objective | Build a working reference for Android camera/video capture via Intents |
-| Success Criteria | App compiles, runs, and both capture flows work on emulator/device |
-| Timeline | Single development iteration (see [Roadmap](#610-product-roadmap)) |
-
-### 8.2 Project Scope
-
-- **In scope:** Photo capture, video capture (60s/high quality), runtime permission handling, result preview, custom UI styling.
-- **Out of scope:** In-app gallery, editing, sharing, cloud sync, multi-camera support, automated UI tests.
-
-### 8.3 Work Breakdown Structure (WBS)
-
-```
-1. AppCamera
-   1.1 UI Layer
-       1.1.1 activity_main.xml layout
-       1.1.2 Gradient background & icons
-   1.2 Capture Logic
-       1.2.1 Permission handling
-       1.2.2 Photo capture (openCamera)
-       1.2.3 Video capture (openVideoRecorder)
-       1.2.4 Result handling (onActivityResult)
-   1.3 Build & Config
-       1.3.1 Gradle setup (build.gradle.kts)
-       1.3.2 AndroidManifest permissions/features
-   1.4 Documentation
-       1.4.1 README (EN/PT/ES)
-```
-
-### 8.4 Schedule (Gantt)
-
-```mermaid
-gantt
-    title AppCamera - Development Schedule
-    dateFormat YYYY-MM-DD
-    section Setup
-    Project scaffolding              :done, 2024-01-01, 5d
-    section Core
-    UI layout                        :done, 2024-01-06, 5d
-    Permission handling              :done, 2024-01-11, 4d
-    Photo capture                    :done, 2024-01-15, 5d
-    Video capture                    :done, 2024-01-20, 5d
-    section Wrap-up
-    Manual testing on emulator       :done, 2024-01-25, 3d
-    Documentation                    :active, 2026-06-13, 3d
-```
-
-### 8.5 Risk Management Plan
-
-| Risk | Probability | Impact | Mitigation |
-|------|------------|--------|------------|
-| Permission denied permanently by user | Medium | High (feature unusable) | Show clear Toast explaining required permission; document in user manual |
-| Emulator without virtual camera | Medium | Medium (cannot test) | Document AVD camera setup in [Runbook](#76-runbook--operations-playbook) |
-| Android version fragmentation (storage API) | Low | Medium | Version-gated code path (`Build.VERSION.SDK_INT >= Q`) |
-
-### 8.6 Risk Matrix
-
-```mermaid
-quadrantChart
-    title Risk Matrix
-    x-axis Low Impact --> High Impact
-    y-axis Low Probability --> High Probability
-    quadrant-1 Monitor
-    quadrant-2 Mitigate Urgently
-    quadrant-3 Accept
-    quadrant-4 Mitigate
-    Permission denied permanently: [0.7, 0.5]
-    Emulator camera missing: [0.4, 0.5]
-    Storage API fragmentation: [0.5, 0.2]
-```
-
-### 8.7 Communication Plan
-
-| Audience | Channel | Frequency |
-|----------|---------|-----------|
-| Recruiters / reviewers | GitHub README (this document) | On demand |
-| Future contributors | GitHub Issues / PRs | As needed |
-
-### 8.8 RACI Matrix
-
-| Activity | Developer (Victor) | Reviewer | End User |
-|----------|:---:|:---:|:---:|
-| Design UI | R/A | C | I |
-| Implement capture logic | R/A | C | I |
-| Test on emulator/device | R/A | I | I |
-| Approve documentation | R/A | C | I |
-
-> R = Responsible, A = Accountable, C = Consulted, I = Informed
-
-### 8.9 SWOT Analysis
-
-| Strengths | Weaknesses |
-|-----------|------------|
-| Simple, well-understood Intent-based approach; minimal dependencies | No custom camera preview/UX; limited to native camera UI |
-
-| Opportunities | Threats |
-|----------------|---------|
-| Extendable to gallery/sharing features; good teaching example | OS-level API changes (Scoped Storage) may require future updates |
-
-### 8.10 Business Case
-
-A minimal-effort, high-clarity demonstration of Android media-capture fundamentals, useful as: (1) a portfolio artifact showing Intent/permission handling competence, (2) a starter template for apps needing quick capture functionality without camera-library overhead.
-
-### 8.11 Feasibility / ROI Analysis
-
-| Factor | Assessment |
-|--------|------------|
-| Technical feasibility | High — relies entirely on stable, well-documented Android APIs |
-| Effort (ROI) | Very low effort (single Activity) for high educational/demo value |
-| Maintenance cost | Low — no backend, no external services |
-
-### 8.12 Change Management Plan
-
-- All changes proposed via feature branches and Pull Requests (see [How to Contribute](#-how-to-contribute)).
-- Breaking changes to the permission flow or Intent contracts must update [1.1 Functional Requirements](#11-functional-requirements-fr) and the [Changelog](#74-changelog).
-
-### 8.13 Contingency Plan
-
-| Scenario | Contingency |
-|----------|-------------|
-| Native camera app unavailable on device | App cannot proceed (no fallback camera implementation); documented as a known limitation. |
-| `MediaStore.insert` returns `null` | Defensive check recommended before launching the Intent (currently not implemented — see [Product Backlog](#114-product-backlog) for tech-debt item). |
-
-### 8.14 Lessons Learned
-
-- Delegating to native camera apps via Intents dramatically reduces implementation complexity versus CameraX/Camera2.
-- Scoped Storage requires explicit version-gated logic (`Build.VERSION_CODES.Q`) — a recurring pattern across Android media apps.
-- Centralizing permission checks in one method avoids duplicated, error-prone permission logic across multiple entry points.
-
-</details>
-
----
-
-## 9. Business Analysis
-
-<details>
-<summary>▶️ <strong>Click to expand / collapse this section</strong></summary>
-
-### 9.1 Business Model Canvas
-
-| Block | Content |
-|-------|---------|
-| **Key Partners** | Android OS / OEM camera apps |
-| **Key Activities** | Maintaining Intent-based capture flow, permission handling |
-| **Value Proposition** | Minimal, reliable photo/video capture reference implementation |
-| **Customer Relationships** | Open-source repository, documentation-driven |
-| **Customer Segments** | Android developers, students, portfolio reviewers |
-| **Key Resources** | Java/Android SDK knowledge, MediaStore APIs |
-| **Channels** | GitHub repository |
-| **Cost Structure** | Developer time only (no infrastructure cost) |
-| **Revenue Streams** | Non-commercial (portfolio/educational) |
-
-### 9.2 Stakeholder Analysis
-
-| Stakeholder | Interest | Influence |
-|-------------|----------|-----------|
-| Developer (Victor H. J. Santiago) | Build portfolio, demonstrate Android skills | High |
-| Recruiters / Reviewers | Assess code quality and documentation | Medium |
-| End Users / Students | Learn from / reuse the implementation | Low |
-
-### 9.3 Impact Analysis
-
-| Change | Affected Areas |
-|--------|-----------------|
-| Adding an in-app gallery | UI layout, new Activity/Fragment, MediaStore query logic |
-| Targeting a higher `minSdk` | Removal of pre-Q storage code path, simplified permission logic |
-| Adding cloud backup | New permissions (INTERNET), privacy policy update, LGPD/GDPR review |
-
-### 9.4 Business Capability Model
+### Test Architecture
 
 ```mermaid
 flowchart TB
-    subgraph Capabilities["AppCamera Capabilities"]
-        C1[Media Capture]
-        C2[Permission Management]
-        C3[Media Presentation]
+    subgraph LOCAL["🖥️ Local Unit Tests — src/test"]
+        U1["ExampleUnitTest.java\n─────────────\nRuns on the JVM\nNo Android framework\nMilliseconds per test"]
     end
-    C1 --> C3
-    C2 --> C1
+    subgraph INSTR["📱 Instrumented Tests — src/androidTest"]
+        I1["ExampleInstrumentedTest.java\n─────────────\nRuns on device/emulator\nReal Context available\nEspresso UI assertions"]
+    end
+    subgraph RUNNER["⚙️ Execution"]
+        R1["JUnit 4"]
+        R2["AndroidJUnitRunner"]
+        R3["Espresso Core"]
+    end
+
+    U1 --> R1
+    I1 --> R2 --> R3
+
+    style LOCAL fill:#1e3a5f,color:#fff
+    style INSTR fill:#1a3a1a,color:#fff
+    style RUNNER fill:#3a2a1a,color:#fff
 ```
 
-</details>
+| Source set | Location | Runtime | Dependency |
+|------------|----------|---------|------------|
+| Unit | `app/src/test/java/com/example/appcamera/` | Local JVM | `junit:junit:4` |
+| Instrumented | `app/src/androidTest/java/com/example/appcamera/` | Device / emulator | `androidx.test.ext:junit`, `androidx.test.espresso:espresso-core` |
+
+### Running the Tests
+
+```bash
+# JVM-local unit tests — no device required
+./gradlew test
+
+# Instrumented tests — requires a connected device or running emulator
+./gradlew connectedAndroidTest
+
+# HTML reports
+# Unit:         app/build/reports/tests/testDebugUnitTest/index.html
+# Instrumented: app/build/reports/androidTests/connected/index.html
+```
+
+### Manual Acceptance Checklist
+
+| # | Scenario | Expected result |
+|---|----------|-----------------|
+| 1 | First launch → tap photo | `CAMERA` dialog appears |
+| 2 | Grant camera → camera app opens | Full-screen system camera |
+| 3 | Take photo → confirm | Preview card shows the image, toast *Foto salva!* |
+| 4 | Open gallery | File present in `Pictures/AppCamera` |
+| 5 | Tap video (first time) | `RECORD_AUDIO` dialog appears |
+| 6 | Record 5 s → confirm | Video auto-plays in the card, toast *Vídeo salvo!* |
+| 7 | Record past 60 s | Recording stops automatically at the limit |
+| 8 | Cancel a capture | Previous preview remains unchanged, no toast |
+| 9 | Deny camera permission | Toast *Permissão negada*, no camera opens |
+| 10 | Toggle system dark mode | Colors invert per `values-night/themes.xml` |
+| 11 | Photo then video | `ImageView` hides, `VideoView` shows |
+| 12 | Rotate the device | App remains usable (state reset is expected) |
 
 ---
 
-## 10. Security & Compliance
+</details>
+
+## 📊 Metrics & Monitoring
 
 <details>
 <summary>▶️ <strong>Click to expand / collapse this section</strong></summary>
 
-### 10.1 Threat Modeling (STRIDE)
+### Codebase Metrics
 
-| Threat Category | Applicable? | Notes / Mitigation |
-|------------------|-------------|---------------------|
-| **S**poofing | Low | No authentication subsystem exists. |
-| **T**ampering | Low | Media files stored via `MediaStore`, governed by OS file permissions. |
-| **R**epudiation | N/A | Single-user local app, no audit requirements. |
-| **I**nformation Disclosure | Medium | Captured photos/videos may contain sensitive personal data; stored unencrypted in shared storage (`Pictures/AppCamera`, `Movies/AppCamera`), readable by other apps with media permissions. |
-| **D**enial of Service | Low | No server component; local resource exhaustion only (device storage full). |
-| **E**levation of Privilege | Low | App only requests the minimum permissions it uses (`CAMERA`, `RECORD_AUDIO`, `WRITE_EXTERNAL_STORAGE`). |
+| Metric | Value |
+|--------|-------|
+| Java source files | 1 production + 2 test |
+| Lines of Java (production) | 161 |
+| Activities | 1 |
+| Layout files | 1 |
+| Drawable resources | 5 vectors |
+| Theme variants | 2 (light, night) |
+| Declared runtime permissions | 3 |
+| Direct dependencies | 4 implementation + 3 test |
+| Cyclomatic hot spot | `checkPermissionsAndOpen` — 4 branches |
 
-### 10.2 Access Control / Permission Matrix (RBAC-style)
+### Runtime Signals
 
-| "Role" | CAMERA | RECORD_AUDIO | WRITE_EXTERNAL_STORAGE |
-|--------|:---:|:---:|:---:|
-| App User (grants at runtime) | ✅ required for any capture | ✅ required for video only | ✅ required on API ≤ 28 |
-| AppCamera (declared in Manifest) | ✅ | ✅ | ✅ (maxSdkVersion 28) |
-| Other apps | ❌ no access to AppCamera's runtime state | ❌ | ⚠️ may read `Pictures/AppCamera` if they hold storage/media permissions (shared storage) |
+| Signal | Source | Where to observe |
+|--------|--------|------------------|
+| Permission grant/deny | `onRequestPermissionsResult` | Toast + `adb logcat` |
+| Capture success | `onActivityResult` with `RESULT_OK` | Toast + preview swap |
+| Capture cancellation | `onActivityResult` with `RESULT_CANCELED` | Silent (no state change) |
+| MediaStore insert | `ContentResolver.insert` return value | `adb shell content query --uri content://media/external/images/media` |
+| App lifecycle | Android framework | `adb logcat -s ActivityManager` |
 
-### 10.3 Information Security Policy (Project-Level)
+### Useful ADB Commands
 
-- The app must request only the permissions strictly necessary for the features in use ([1.1 FR](#11-functional-requirements-fr)).
-- No telemetry, analytics SDK, or network transmission of captured media is included.
-- Captured media remains under the user's control in standard shared storage locations, removable via the device's Gallery/Files app like any other media.
+```bash
+# Watch application logs only
+adb logcat --pid=$(adb shell pidof -s com.example.appcamera)
 
-### 10.4 LGPD / GDPR Compliance Notes
+# Inspect currently granted permissions
+adb shell dumpsys package com.example.appcamera | grep -A 20 "runtime permissions"
 
-| Aspect | Status |
-|--------|--------|
-| Personal data collected | Images/audio captured by the user via device camera/microphone (potentially containing personal data of the user or third parties). |
-| Data controller | The end user (data stays on their device — AppCamera does not transmit or process it server-side). |
-| Legal basis | Not applicable in the traditional sense — purely local, user-initiated capture, no processing by the app developer. |
-| User rights (access/deletion) | Fully available via the OS Gallery/Files app, since data is stored as standard media files. |
-| Recommendation if cloud features are added later | Re-assess this section; add explicit consent flows, a privacy policy, and Play Console Data Safety disclosures. |
+# List captured photos on the device
+adb shell ls -l /sdcard/Pictures/AppCamera/
 
-### 10.5 Incident Response Plan
+# List captured videos on the device
+adb shell ls -l /sdcard/Movies/AppCamera/
 
-| Step | Action |
-|------|--------|
-| 1. Detection | Issue reported via GitHub Issues (e.g., a permission/security bug). |
-| 2. Triage | Developer assesses severity (e.g., does it expose user media unexpectedly?). |
-| 3. Containment | Revert/disable the offending code path via a hotfix branch. |
-| 4. Remediation | Patch released, [Changelog](#74-changelog) updated. |
-| 5. Post-mortem | Add entry to [Lessons Learned](#814-lessons-learned). |
+# Reset all permissions to first-launch state
+adb shell pm reset-permissions com.example.appcamera
+```
+
+### Standardized Result Codes
+
+| Code | Constant | Meaning |
+|------|----------|---------|
+| `-1` | `RESULT_OK` | Capture completed and written to the destination Uri |
+| `0` | `RESULT_CANCELED` | User backed out or the camera app aborted |
+| `100` | `REQ_CAM` | Camera / audio permission request in flight |
+| `101` | `REQ_WRITE` | Legacy storage permission request in flight |
+| `1` | `REQ_CAPTURE_PHOTO` | Photo capture result channel |
+| `2` | `REQ_CAPTURE_VIDEO` | Video capture result channel |
+
+---
+
+</details>
+
+## ⚠️ Known Limitations
+
+<details>
+<summary>▶️ <strong>Click to expand / collapse this section</strong></summary>
+
+> [!IMPORTANT]
+> This application was developed for educational purposes, to demonstrate the Android Intent-delegation capture model and correct scoped-storage handling.
+
+| Category | Issue | Status |
+|----------|-------|--------|
+| 🔄 **Deprecated API** | `startActivityForResult` / `onActivityResult` are deprecated in favour of the Activity Result API | ⚠️ Open — migrate to `registerForActivityResult(ActivityResultContracts.TakePicture())` |
+| 💾 **Orphan rows** | A cancelled capture on API 29+ leaves an empty MediaStore record | ⚠️ Open — delete the pending Uri on `RESULT_CANCELED` |
+| 🔁 **Permission callback** | `onRequestPermissionsResult` always calls `openCamera()`, even when the user was recording video | ⚠️ Open — remember the requested mode and resume the correct branch |
+| 📱 **Rotation** | `photoUri` / `videoUri` are not written to `onSaveInstanceState`; a configuration change during capture loses the destination | ⚠️ Open — persist both Uris in the saved state bundle |
+| 🕳️ **Intent resolution** | No `resolveActivity` check before dispatch | ⚠️ Open — guard against devices with no camera application |
+| 🌍 **Hardcoded strings** | Toast messages are Portuguese literals inside `MainActivity.java` | ⚠️ Open — move to `strings.xml` with locale variants |
+| 🧬 **Minification** | Release builds ship with R8 disabled | ⚠️ Open — flip `isMinifyEnabled = true` |
+| 🧪 **Test coverage** | Only the generated example tests exist | ⚠️ Open — add Espresso coverage for the permission and preview flows |
+| 📐 **Architecture** | All logic lives in the Activity — no ViewModel, no repository | ➕ Intentional — the project's scope is the capture mechanism itself |
+
+> [!TIP]
+> The single highest-value modernization is migrating to the **Activity Result API**, which simultaneously removes the deprecation, fixes the permission-callback branch bug, and survives configuration changes without manual state plumbing.
 
 </details>
 
@@ -1582,6 +1195,23 @@ flowchart TB
 
 <div align="center">
 
-*Made with 📸 and Java by **Victor H. J. Santiago***
+---
+
+### 📸 AppCamera
+
+*Delegate the capture, own the destination*
+
+[![Android](https://img.shields.io/badge/Powered%20by-Android%20SDK-3DDC84?style=flat-square&logo=android&logoColor=white)](https://developer.android.com/)
+[![Java](https://img.shields.io/badge/Written%20in-Java%2011-ED8B00?style=flat-square&logo=openjdk&logoColor=white)](https://openjdk.org/)
+[![Material](https://img.shields.io/badge/Design-Material%203-757575?style=flat-square&logo=materialdesign&logoColor=white)](https://m3.material.io/)
+[![Scoped](https://img.shields.io/badge/Storage-Scoped%20MediaStore-6DB33F?style=flat-square)](https://developer.android.com/training/data-storage/shared/media)
+[![Offline](https://img.shields.io/badge/Network-Zero%20Permissions-8B5CF6?style=flat-square)]()
+
+<br/>
+
+```
+"The best camera is the one that's with you —
+ and the best camera code is the code you didn't have to write."
+```
 
 </div>
